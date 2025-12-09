@@ -1,0 +1,993 @@
+{
+  "1": [
+    {
+      "id": "q1-pre-topic1",
+      "topicId": 1,
+      "questionText": "Čo je fotosyntéza?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Proces, pri ktorom rastliny vytvárajú kyslík",
+        "Proces, pri ktorom rastliny získavajú energiu zo svetla",
+        "Proces, pri ktorom rastliny pijú vodu",
+        "Proces, pri ktorom rastliny rastú"
+      ],
+      "correctAnswer": 1,
+      "order": 1
+    },
+    {
+      "id": "q2-pre-topic1",
+      "topicId": 1,
+      "questionText": "V ktorej časti rastliny prebieha fotosyntéza?",
+      "questionType": "multiple_choice",
+      "options": [
+        "V koreňoch",
+        "V stonke",
+        "V listoch (chloroplasty)",
+        "V kvete"
+      ],
+      "correctAnswer": 2,
+      "order": 2
+    },
+    {
+      "id": "q3-pre-topic1",
+      "topicId": 1,
+      "questionText": "Fotosyntéza potrebuje svetlo na fungovanie.",
+      "questionType": "true_false",
+      "options": [
+        "Pravda",
+        "Nepravda"
+      ],
+      "correctAnswer": 0,
+      "order": 3
+    },
+    {
+      "id": "q4-pre-topic1",
+      "topicId": 1,
+      "questionText": "Aké látky sú výstupom fotosyntézy?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Voda a oxid uhličitý",
+        "Glukóza a kyslík",
+        "Svetlo a chlorofyl",
+        "Voda a kyslík"
+      ],
+      "correctAnswer": 1,
+      "order": 4
+    },
+    {
+      "id": "q5-pre-topic1",
+      "topicId": 1,
+      "questionText": "Čo je chlorofyl?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Zelený pigment, ktorý absorbuje svetlo",
+        "Typ vody v rastlinách",
+        "Časť koreňa",
+        "Produkt fotosyntézy"
+      ],
+      "correctAnswer": 0,
+      "order": 5
+    },
+    {
+      "id": "q6-pre-topic1",
+      "topicId": 1,
+      "questionText": "Ktoré plyny sú potrebné pre fotosyntézu?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Kyslík",
+        "Oxid uhličitý",
+        "Dusík",
+        "Vodík"
+      ],
+      "correctAnswer": 1,
+      "order": 6
+    },
+    {
+      "id": "q7-pre-topic1",
+      "topicId": 1,
+      "questionText": "Fotosyntéza prebieha len cez deň.",
+      "questionType": "true_false",
+      "options": [
+        "Pravda",
+        "Nepravda"
+      ],
+      "correctAnswer": 0,
+      "order": 7
+    },
+    {
+      "id": "q8-pre-topic1",
+      "topicId": 1,
+      "questionText": "Ktorá časť rastliny pohlcuje vodu pre fotosyntézu?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Listy",
+        "Kvety",
+        "Korene",
+        "Plody"
+      ],
+      "correctAnswer": 2,
+      "order": 8
+    }
+  ],
+  "3": [
+    {
+      "id": "q1-pre-topic3",
+      "topicId": 3,
+      "questionText": "Čo sú protostómy?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Skupina rastlín",
+        "Skupina živočíchov, kde sa ústa vyvíjajú z blastoporu",
+        "Typ baktérií",
+        "Skupina húb"
+      ],
+      "correctAnswer": 1,
+      "order": 1
+    },
+    {
+      "id": "q2-pre-topic3",
+      "topicId": 3,
+      "questionText": "Ktorá z nasledujúcich skupín patrí k protostómom?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Stavovce",
+        "Cicavce",
+        "Hmyz a mäkkýše",
+        "Vtáky"
+      ],
+      "correctAnswer": 2,
+      "order": 2
+    },
+    {
+      "id": "q3-pre-topic3",
+      "topicId": 3,
+      "questionText": "Protostómy majú bilaterálnu symetriu.",
+      "questionType": "true_false",
+      "options": [
+        "Pravda",
+        "Nepravda"
+      ],
+      "correctAnswer": 0,
+      "order": 3
+    },
+    {
+      "id": "q4-pre-topic3",
+      "topicId": 3,
+      "questionText": "Čo je blastopor?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Prvý otvor v embryu",
+        "Typ bunky",
+        "Orgán na dýchanie",
+        "Časť nervového systému"
+      ],
+      "correctAnswer": 0,
+      "order": 4
+    },
+    {
+      "id": "q5-pre-topic3",
+      "topicId": 3,
+      "questionText": "Ktorá z týchto skupín NIE je protostóm?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Hmyz",
+        "Mäkkýše",
+        "Morské hviezdice",
+        "Červy"
+      ],
+      "correctAnswer": 2,
+      "order": 5
+    },
+    {
+      "id": "q6-pre-topic3",
+      "topicId": 3,
+      "questionText": "Protostómy sú evolučne staršie ako deuterostómy.",
+      "questionType": "true_false",
+      "options": [
+        "Pravda",
+        "Nepravda"
+      ],
+      "correctAnswer": 1,
+      "order": 6
+    },
+    {
+      "id": "q7-pre-topic3",
+      "topicId": 3,
+      "questionText": "Aký typ telesnej dutiny majú protostómy?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Nemajú telesn dutinu",
+        "Pseudocoel alebo coel",
+        "Len coel",
+        "Žiadnu zo spomínaných"
+      ],
+      "correctAnswer": 1,
+      "order": 7
+    },
+    {
+      "id": "q8-pre-topic3",
+      "topicId": 3,
+      "questionText": "Koľko percent živočíchov na Zemi tvoria protostómy?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Približne 10%",
+        "Približne 30%",
+        "Približne 50%",
+        "Viac ako 80%"
+      ],
+      "correctAnswer": 3,
+      "order": 8
+    }
+  ],
+  "4": [
+    {
+      "id": "q1-pre-topic4",
+      "topicId": 4,
+      "questionText": "Čo je wok?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Typ jedla",
+        "Hlboká panvica s oblým dnom",
+        "Druh korenia",
+        "Varný štýl"
+      ],
+      "correctAnswer": 1,
+      "order": 1
+    },
+    {
+      "id": "q2-pre-topic4",
+      "topicId": 4,
+      "questionText": "Pri akom type varenia na woku je najvyššia teplota?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Pečenie",
+        "Stir-fry (miešané smaženie)",
+        "Varenie",
+        "Dusenie"
+      ],
+      "correctAnswer": 1,
+      "order": 2
+    },
+    {
+      "id": "q3-pre-topic4",
+      "topicId": 4,
+      "questionText": "Pri stir-fry je dôležité neustále miešať jedlo.",
+      "questionType": "true_false",
+      "options": [
+        "Pravda",
+        "Nepravda"
+      ],
+      "correctAnswer": 0,
+      "order": 3
+    },
+    {
+      "id": "q4-pre-topic4",
+      "topicId": 4,
+      "questionText": "Aký olej je najlepší na varenie na woku pri vysokej teplote?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Olivový olej",
+        "Maslo",
+        "Olej s vysokým bodom dymu (napr. arašidový)",
+        "Kokosový olej"
+      ],
+      "correctAnswer": 2,
+      "order": 4
+    },
+    {
+      "id": "q5-pre-topic4",
+      "topicId": 4,
+      "questionText": "V akom poradí sa pridávajú ingrediencie do woku?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Všetko naraz",
+        "Najprv zelenina, potom mäso",
+        "Najprv ingrediencie s dlhším časom varenia",
+        "Náhodne"
+      ],
+      "correctAnswer": 2,
+      "order": 5
+    },
+    {
+      "id": "q6-pre-topic4",
+      "topicId": 4,
+      "questionText": "Wok pochádza z Číny.",
+      "questionType": "true_false",
+      "options": [
+        "Pravda",
+        "Nepravda"
+      ],
+      "correctAnswer": 0,
+      "order": 6
+    },
+    {
+      "id": "q7-pre-topic4",
+      "topicId": 4,
+      "questionText": "Prečo je dôležité nakrájať ingrediencie na rovnako veľké kúsky?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Pre estetiku",
+        "Pre rovnomerné uvarenie",
+        "Pre lepšiu chuť",
+        "Nie je to dôležité"
+      ],
+      "correctAnswer": 1,
+      "order": 7
+    },
+    {
+      "id": "q8-pre-topic4",
+      "topicId": 4,
+      "questionText": "Čo je 'wok hei'?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Typ woku",
+        "Dym a aróma z varenia na vysokej teplote",
+        "Čínske korenie",
+        "Technika krájania"
+      ],
+      "correctAnswer": 1,
+      "order": 8
+    }
+  ],
+  "5": [
+    {
+      "id": "q1-pre-topic5",
+      "topicId": 5,
+      "questionText": "Čo je kalória?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Typ vitamínu",
+        "Jednotka energie v jedle",
+        "Typ makroživiny",
+        "Minerál"
+      ],
+      "correctAnswer": 1,
+      "order": 1
+    },
+    {
+      "id": "q2-pre-topic5",
+      "topicId": 5,
+      "questionText": "Koľko kalórií obsahuje 1 gram bielkovín?",
+      "questionType": "multiple_choice",
+      "options": [
+        "2 kcal",
+        "4 kcal",
+        "7 kcal",
+        "9 kcal"
+      ],
+      "correctAnswer": 1,
+      "order": 2
+    },
+    {
+      "id": "q3-pre-topic5",
+      "topicId": 5,
+      "questionText": "Tuky majú viac kalórií ako sacharidy.",
+      "questionType": "true_false",
+      "options": [
+        "Pravda",
+        "Nepravda"
+      ],
+      "correctAnswer": 0,
+      "order": 3
+    },
+    {
+      "id": "q4-pre-topic5",
+      "topicId": 5,
+      "questionText": "Koľko kalórií obsahuje 1 gram tuku?",
+      "questionType": "multiple_choice",
+      "options": [
+        "4 kcal",
+        "7 kcal",
+        "9 kcal",
+        "12 kcal"
+      ],
+      "correctAnswer": 2,
+      "order": 4
+    },
+    {
+      "id": "q5-pre-topic5",
+      "topicId": 5,
+      "questionText": "Čo je BMR (bazálny metabolizmus)?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Kalórie potrebné na cvičenie",
+        "Kalórie spálené v pokoji",
+        "Denný príjem kalórií",
+        "Kalórie v jedle"
+      ],
+      "correctAnswer": 1,
+      "order": 5
+    },
+    {
+      "id": "q6-pre-topic5",
+      "topicId": 5,
+      "questionText": "Pre chudnutie musíte jesť menej kalórií, ako spalujete.",
+      "questionType": "true_false",
+      "options": [
+        "Pravda",
+        "Nepravda"
+      ],
+      "correctAnswer": 0,
+      "order": 6
+    },
+    {
+      "id": "q7-pre-topic5",
+      "topicId": 5,
+      "questionText": "Koľko kalórií je približne v 1 kg telesného tuku?",
+      "questionType": "multiple_choice",
+      "options": [
+        "3 500 kcal",
+        "5 000 kcal",
+        "7 000 kcal",
+        "10 000 kcal"
+      ],
+      "correctAnswer": 2,
+      "order": 7
+    },
+    {
+      "id": "q8-pre-topic5",
+      "topicId": 5,
+      "questionText": "Ktorá makroživina má prioritu pri metabolizme?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Bielkoviny",
+        "Sacharidy",
+        "Tuky",
+        "Všetky rovnako"
+      ],
+      "correctAnswer": 1,
+      "order": 8
+    }
+  ],
+  "6": [
+    {
+      "id": "q1-pre-topic6",
+      "topicId": 6,
+      "questionText": "Čo je vektor?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Číslo",
+        "Veličina s veľkosťou a smerom",
+        "Geometrický útvar",
+        "Typ rovnice"
+      ],
+      "correctAnswer": 1,
+      "order": 1
+    },
+    {
+      "id": "q2-pre-topic6",
+      "topicId": 6,
+      "questionText": "Ktorá z týchto veličín je vektor?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Teplota",
+        "Hmotnosť",
+        "Rýchlosť",
+        "Čas"
+      ],
+      "correctAnswer": 2,
+      "order": 2
+    },
+    {
+      "id": "q3-pre-topic6",
+      "topicId": 6,
+      "questionText": "Skalár má len veľkosť, nie smer.",
+      "questionType": "true_false",
+      "options": [
+        "Pravda",
+        "Nepravda"
+      ],
+      "correctAnswer": 0,
+      "order": 3
+    },
+    {
+      "id": "q4-pre-topic6",
+      "topicId": 6,
+      "questionText": "Ako sa zapisuje vektor?",
+      "questionType": "multiple_choice",
+      "options": [
+        "S šípkou nad písmenom alebo tučným písmom",
+        "V zátvorkách",
+        "S bodkou",
+        "Kurzívou"
+      ],
+      "correctAnswer": 0,
+      "order": 4
+    },
+    {
+      "id": "q5-pre-topic6",
+      "topicId": 6,
+      "questionText": "Čo je nulový vektor?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Vektor s veľkosťou 1",
+        "Vektor s veľkosťou 0",
+        "Vektor v smere osi x",
+        "Neexistuje"
+      ],
+      "correctAnswer": 1,
+      "order": 5
+    },
+    {
+      "id": "q6-pre-topic6",
+      "topicId": 6,
+      "questionText": "Vektory sa môžu sčítavať geometricky.",
+      "questionType": "true_false",
+      "options": [
+        "Pravda",
+        "Nepravda"
+      ],
+      "correctAnswer": 0,
+      "order": 6
+    },
+    {
+      "id": "q7-pre-topic6",
+      "topicId": 6,
+      "questionText": "Ako sa nazýva dĺžka vektora?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Smer",
+        "Modul alebo veľkosť",
+        "Súradnica",
+        "Pozícia"
+      ],
+      "correctAnswer": 1,
+      "order": 7
+    },
+    {
+      "id": "q8-pre-topic6",
+      "topicId": 6,
+      "questionText": "V koľkých rozmeroch môže existovať vektor?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Len v 2D",
+        "Len v 3D",
+        "V 2D, 3D aj viacrozmerných priestoroch",
+        "Len v 1D"
+      ],
+      "correctAnswer": 2,
+      "order": 8
+    }
+  ],
+  "7": [
+    {
+      "id": "q1-pre-topic7",
+      "topicId": 7,
+      "questionText": "Čo je mocnina?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Násobenie dvoch čísel",
+        "Opakované násobenie rovnakého čísla",
+        "Sčítanie čísel",
+        "Delenie čísel"
+      ],
+      "correctAnswer": 1,
+      "order": 1
+    },
+    {
+      "id": "q2-pre-topic7",
+      "topicId": 7,
+      "questionText": "Čo znamená 2³?",
+      "questionType": "multiple_choice",
+      "options": [
+        "2 + 3",
+        "2 × 3",
+        "2 × 2 × 2",
+        "3 × 3"
+      ],
+      "correctAnswer": 2,
+      "order": 2
+    },
+    {
+      "id": "q3-pre-topic7",
+      "topicId": 7,
+      "questionText": "Akékoľvek číslo na 0-tú mocninu je 1.",
+      "questionType": "true_false",
+      "options": [
+        "Pravda",
+        "Nepravda"
+      ],
+      "correctAnswer": 0,
+      "order": 3
+    },
+    {
+      "id": "q4-pre-topic7",
+      "topicId": 7,
+      "questionText": "Koľko je 5²?",
+      "questionType": "multiple_choice",
+      "options": [
+        "10",
+        "15",
+        "25",
+        "50"
+      ],
+      "correctAnswer": 2,
+      "order": 4
+    },
+    {
+      "id": "q5-pre-topic7",
+      "topicId": 7,
+      "questionText": "Čo je základ v mocnine 3⁴?",
+      "questionType": "multiple_choice",
+      "options": [
+        "3",
+        "4",
+        "7",
+        "12"
+      ],
+      "correctAnswer": 0,
+      "order": 5
+    },
+    {
+      "id": "q6-pre-topic7",
+      "topicId": 7,
+      "questionText": "Mocnina s negatívnym exponentom je vždy záporná.",
+      "questionType": "true_false",
+      "options": [
+        "Pravda",
+        "Nepravda"
+      ],
+      "correctAnswer": 1,
+      "order": 6
+    },
+    {
+      "id": "q7-pre-topic7",
+      "topicId": 7,
+      "questionText": "Ako sa nazýva číslo 'n' v zápise aⁿ?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Základ",
+        "Exponent alebo mocniteľ",
+        "Výsledok",
+        "Koeficient"
+      ],
+      "correctAnswer": 1,
+      "order": 7
+    },
+    {
+      "id": "q8-pre-topic7",
+      "topicId": 7,
+      "questionText": "Čo je druhá mocnina?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Násobenie číslom 2",
+        "Delenie číslom 2",
+        "Násobenie čísla samo sebou",
+        "Sčítanie čísla 2-krát"
+      ],
+      "correctAnswer": 2,
+      "order": 8
+    }
+  ],
+  "8": [
+    {
+      "id": "q1-pre-topic8",
+      "topicId": 8,
+      "questionText": "Čo je stretching?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Typ kardio cvičenia",
+        "Naťahovanie svalov",
+        "Silový tréning",
+        "Typ stravy"
+      ],
+      "correctAnswer": 1,
+      "order": 1
+    },
+    {
+      "id": "q2-pre-topic8",
+      "topicId": 8,
+      "questionText": "Kedy je najlepší čas na statický stretching?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Pred cvičením",
+        "Počas cvičenia",
+        "Po cvičení",
+        "Kedykoľvek"
+      ],
+      "correctAnswer": 2,
+      "order": 2
+    },
+    {
+      "id": "q3-pre-topic8",
+      "topicId": 8,
+      "questionText": "Dynamický stretching je vhodný pred tréningom.",
+      "questionType": "true_false",
+      "options": [
+        "Pravda",
+        "Nepravda"
+      ],
+      "correctAnswer": 0,
+      "order": 3
+    },
+    {
+      "id": "q4-pre-topic8",
+      "topicId": 8,
+      "questionText": "Ako dlho by mal trvať statický stretch?",
+      "questionType": "multiple_choice",
+      "options": [
+        "5-10 sekúnd",
+        "15-30 sekúnd",
+        "1-2 minúty",
+        "5 minút"
+      ],
+      "correctAnswer": 1,
+      "order": 4
+    },
+    {
+      "id": "q5-pre-topic8",
+      "topicId": 8,
+      "questionText": "Čo je dynamický stretching?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Držanie pozície bez pohybu",
+        "Kontrolované pohyby cez celý rozsah pohybu",
+        "Rýchle trhavé pohyby",
+        "Pasívne naťahovanie"
+      ],
+      "correctAnswer": 1,
+      "order": 5
+    },
+    {
+      "id": "q6-pre-topic8",
+      "topicId": 8,
+      "questionText": "Stretching by mal byť bolestivý, aby bol efektívny.",
+      "questionType": "true_false",
+      "options": [
+        "Pravda",
+        "Nepravda"
+      ],
+      "correctAnswer": 1,
+      "order": 6
+    },
+    {
+      "id": "q7-pre-topic8",
+      "topicId": 8,
+      "questionText": "Aký je hlavný benefit stretchingu?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Budovanie svalov",
+        "Spaľovanie kalórií",
+        "Zvýšenie flexibility a rozsahu pohybu",
+        "Zvýšenie sily"
+      ],
+      "correctAnswer": 2,
+      "order": 7
+    },
+    {
+      "id": "q8-pre-topic8",
+      "topicId": 8,
+      "questionText": "Čo je ballistický stretching?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Pomalé kontrolované naťahovanie",
+        "Trhavé odrazové pohyby",
+        "Držanie pozície",
+        "Pasívny stretching"
+      ],
+      "correctAnswer": 1,
+      "order": 8
+    }
+  ],
+  "9": [
+    {
+      "id": "q1-pre-topic9",
+      "topicId": 9,
+      "questionText": "Čo je farebný kruh?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Typ maľby",
+        "Diagram znázorňujúci vzťahy medzi farbami",
+        "Farba kruhu",
+        "Nástroj na miešanie farieb"
+      ],
+      "correctAnswer": 1,
+      "order": 1
+    },
+    {
+      "id": "q2-pre-topic9",
+      "topicId": 9,
+      "questionText": "Ktoré sú primárne farby?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Zelená, oranžová, fialová",
+        "Červená, žltá, modrá",
+        "Čierna, biela, sivá",
+        "Ružová, hnedá, tyrkysová"
+      ],
+      "correctAnswer": 1,
+      "order": 2
+    },
+    {
+      "id": "q3-pre-topic9",
+      "topicId": 9,
+      "questionText": "Komplementárne farby sú oproti sebe na farebnom kruhu.",
+      "questionType": "true_false",
+      "options": [
+        "Pravda",
+        "Nepravda"
+      ],
+      "correctAnswer": 0,
+      "order": 3
+    },
+    {
+      "id": "q4-pre-topic9",
+      "topicId": 9,
+      "questionText": "Aká farba je komplementárna k modrej?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Zelená",
+        "Červená",
+        "Oranžová",
+        "Fialová"
+      ],
+      "correctAnswer": 2,
+      "order": 4
+    },
+    {
+      "id": "q5-pre-topic9",
+      "topicId": 9,
+      "questionText": "Čo sú analógové farby?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Farby oproti sebe",
+        "Farby vedľa seba na farebnom kruhu",
+        "Čiernobiela škála",
+        "Primárne farby"
+      ],
+      "correctAnswer": 1,
+      "order": 5
+    },
+    {
+      "id": "q6-pre-topic9",
+      "topicId": 9,
+      "questionText": "Teplé farby zahŕňajú červenú, oranžovú a žltú.",
+      "questionType": "true_false",
+      "options": [
+        "Pravda",
+        "Nepravda"
+      ],
+      "correctAnswer": 0,
+      "order": 6
+    },
+    {
+      "id": "q7-pre-topic9",
+      "topicId": 9,
+      "questionText": "Ktoré farby sú studené?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Červená, oranžová",
+        "Žltá, zelená",
+        "Modrá, zelená, fialová",
+        "Hnedá, sivá"
+      ],
+      "correctAnswer": 2,
+      "order": 7
+    },
+    {
+      "id": "q8-pre-topic9",
+      "topicId": 9,
+      "questionText": "Čo je triádová farebná schéma?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Tri farby rovnako vzdialené na farebnom kruhu",
+        "Tri odtiene jednej farby",
+        "Čierna, biela a jedna farba",
+        "Primárne farby"
+      ],
+      "correctAnswer": 0,
+      "order": 8
+    }
+  ],
+  "10": [
+    {
+      "id": "q1-pre-topic10",
+      "topicId": 10,
+      "questionText": "Čo je List (zoznam)?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Usporiadaná kolekcia, ktorá povoľuje duplikáty",
+        "Neusporiadaná kolekcia bez duplikátov",
+        "Kolekcia párov kľúč-hodnota",
+        "Dynamické pole s fixnou veľkosťou"
+      ],
+      "correctAnswer": 0,
+      "order": 1
+    },
+    {
+      "id": "q2-pre-topic10",
+      "topicId": 10,
+      "questionText": "Čo je Set (množina)?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Usporiadaná kolekcia s duplikátmi",
+        "Neusporiadaná kolekcia bez duplikátov",
+        "Párová štruktúra",
+        "Pole objektov"
+      ],
+      "correctAnswer": 1,
+      "order": 2
+    },
+    {
+      "id": "q3-pre-topic10",
+      "topicId": 10,
+      "questionText": "Set automaticky odstráni duplicitné prvky.",
+      "questionType": "true_false",
+      "options": [
+        "Pravda",
+        "Nepravda"
+      ],
+      "correctAnswer": 0,
+      "order": 3
+    },
+    {
+      "id": "q4-pre-topic10",
+      "topicId": 10,
+      "questionText": "Čo je Map (mapa)?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Zoznam čísel",
+        "Kolekcia párov kľúč-hodnota",
+        "Množina prvkov",
+        "Statické pole"
+      ],
+      "correctAnswer": 1,
+      "order": 4
+    },
+    {
+      "id": "q5-pre-topic10",
+      "topicId": 10,
+      "questionText": "Ktorá štruktúra je najrýchlejšia na prístup podľa indexu?",
+      "questionType": "multiple_choice",
+      "options": [
+        "List",
+        "Set",
+        "Map",
+        "Všetky rovnako"
+      ],
+      "correctAnswer": 0,
+      "order": 5
+    },
+    {
+      "id": "q6-pre-topic10",
+      "topicId": 10,
+      "questionText": "Map môže mať duplicitné kľúče.",
+      "questionType": "true_false",
+      "options": [
+        "Pravda",
+        "Nepravda"
+      ],
+      "correctAnswer": 1,
+      "order": 6
+    },
+    {
+      "id": "q7-pre-topic10",
+      "topicId": 10,
+      "questionText": "Kedy použiť Set namiesto List?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Keď potrebujete zachovať poradie",
+        "Keď chcete unikátne prvky a rýchle vyhľadávanie",
+        "Keď potrebujete páry kľúč-hodnota",
+        "Nikdy"
+      ],
+      "correctAnswer": 1,
+      "order": 7
+    },
+    {
+      "id": "q8-pre-topic10",
+      "topicId": 10,
+      "questionText": "Čo je Vector v programovaní?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Matematický vektor",
+        "Dynamické pole (ako ArrayList)",
+        "Fixné pole",
+        "Typ grafu"
+      ],
+      "correctAnswer": 1,
+      "order": 8
+    }
+  ]
+}
+

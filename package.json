@@ -1,0 +1,13 @@
+{
+  "name": "gemini-api-app",
+  "version": "1.0.0",
+  "description": "Jednoduchá aplikácia pre Gemini API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1"
+  }
+}
+

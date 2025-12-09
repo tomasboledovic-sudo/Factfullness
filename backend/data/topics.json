@@ -1,0 +1,103 @@
+[
+  {
+    "id": 1,
+    "title": "Základy Fotosyntézy",
+    "category": "Biológia",
+    "difficulty": "beginner",
+    "description": "Naučte sa, ako rastliny premieňajú svetlo na energiu",
+    "longDescription": "Fotosyntéza je proces, pri ktorom rastliny využívajú slnečnú energiu na výrobu glukózy z oxidu uhličitého a vody.",
+    "estimatedDuration": 10,
+    "coverImage": "/images/topics/photosynthesis.jpg"
+  },
+  {
+    "id": 2,
+    "title": "Pytagorova Veta",
+    "category": "Matematika",
+    "difficulty": "intermediate",
+    "description": "Pochopte jeden z najdôležitejších vzorcov geometrie",
+    "longDescription": "Pytagorova veta je základný princíp v geometrii, ktorý popisuje vzťah medzi stranami pravouhlého trojuholníka.",
+    "estimatedDuration": 10,
+    "coverImage": "/images/topics/pythagoras.jpg"
+  },
+  {
+    "id": 3,
+    "title": "Protostómy",
+    "category": "Biológia",
+    "difficulty": "intermediate",
+    "description": "Objavte fascinujúcu skupinu živočíchov s jedinečným vývojom",
+    "longDescription": "Protostómy sú veľká skupina živočíchov, kde sa ústa vyvíjajú z blastoporu počas embryonálneho vývoja.",
+    "estimatedDuration": 10,
+    "coverImage": "/images/topics/protostomes.jpg"
+  },
+  {
+    "id": 4,
+    "title": "Varenie na Woku",
+    "category": "Varenie",
+    "difficulty": "beginner",
+    "description": "Zvládnite umenie ázijského varenia na vysokej teplote",
+    "longDescription": "Naučte sa techniky prípravy jedla na woku - od správnej teploty až po časovanie ingrediencií.",
+    "estimatedDuration": 10,
+    "coverImage": "/images/topics/wok-cooking.jpg"
+  },
+  {
+    "id": 5,
+    "title": "Výpočet Kalórií",
+    "category": "Výživa",
+    "difficulty": "beginner",
+    "description": "Pochopte, ako počítať kalórie a riadiť energetický príjem",
+    "longDescription": "Naučte sa základy výpočtu kalórií, makroživín a plánovania stravy podľa vašich cieľov.",
+    "estimatedDuration": 10,
+    "coverImage": "/images/topics/calories.jpg"
+  },
+  {
+    "id": 6,
+    "title": "Čo sú to Vektory",
+    "category": "Matematika",
+    "difficulty": "intermediate",
+    "description": "Základy vektorov - veličiny s veľkosťou a smerom",
+    "longDescription": "Vektory sú matematické objekty s veľkosťou a smerom, používané vo fyzike, grafike a inžinierstve.",
+    "estimatedDuration": 10,
+    "coverImage": "/images/topics/vectors.jpg"
+  },
+  {
+    "id": 7,
+    "title": "Mocniny a Odmocniny",
+    "category": "Matematika",
+    "difficulty": "beginner",
+    "description": "Pochopte základné pravidlá práce s mocninami",
+    "longDescription": "Naučte sa, čo sú mocniny, ako ich počítať a kde sa používajú v praxi.",
+    "estimatedDuration": 10,
+    "coverImage": "/images/topics/exponents.jpg"
+  },
+  {
+    "id": 8,
+    "title": "Stretching Svalov",
+    "category": "Fitness",
+    "difficulty": "beginner",
+    "description": "Naučte sa správne techniky naťahovania pre lepšiu flexibilitu",
+    "longDescription": "Objavte, ako sa správne stretchovať pre zvýšenie flexibility, prevenciu zranení a lepší výkon.",
+    "estimatedDuration": 10,
+    "coverImage": "/images/topics/stretching.jpg"
+  },
+  {
+    "id": 9,
+    "title": "Farebná Harmónia",
+    "category": "Dizajn",
+    "difficulty": "beginner",
+    "description": "Ktoré farby sa k sebe hodia a prečo",
+    "longDescription": "Pochopte farebný kruh, komplementárne farby a ako vytvárať harmonické farebné kombinácie.",
+    "estimatedDuration": 10,
+    "coverImage": "/images/topics/color-theory.jpg"
+  },
+  {
+    "id": 10,
+    "title": "List vs Set vs Map",
+    "category": "Programovanie",
+    "difficulty": "intermediate",
+    "description": "Porozumejte dátovým štruktúram v programovaní",
+    "longDescription": "Naučte sa rozdiely medzi List, Set, Map a Vector - kedy použiť ktorú dátovú štruktúru.",
+    "estimatedDuration": 10,
+    "coverImage": "/images/topics/data-structures.jpg"
+  }
+]
+

@@ -1,0 +1,251 @@
+.results-container {
+  max-width: 900px;
+  margin: 3rem auto;
+  padding-bottom: 3rem;
+  position: relative;
+}
+
+.results-container::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  left: -150px;
+  width: 400px;
+  height: 400px;
+  background: var(--pink);
+  border-radius: 50%;
+  opacity: 0.04;
+  z-index: -1;
+}
+
+.results-hero {
+  text-align: center;
+  padding: 3rem 2rem;
+  margin-bottom: 3rem;
+}
+
+.results-emoji {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+}
+
+.results-status {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.results-status.excellent {
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.results-status.good {
+  background: linear-gradient(135deg, var(--accent-dark), var(--primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.results-status.ok {
+  background: linear-gradient(135deg, var(--pink), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.results-subtitle {
+  font-size: 1.25rem;
+  color: var(--muted-foreground);
+}
+
+.score-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.score-card {
+  background: white;
+  padding: 2rem;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 16px rgba(26, 58, 82, 0.08);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #e8ecf0;
+}
+
+.score-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: var(--accent-dark);
+}
+
+.improvement-card::before {
+  background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+}
+
+.score-card-label {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.score-card-value {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 0.5rem;
+}
+
+.improvement-card .score-card-value {
+  color: var(--accent-dark);
+}
+
+.score-card-icon {
+  font-size: 2rem;
+}
+
+.chart-container {
+  background: white;
+  padding: 2rem;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  margin-bottom: 3rem;
+}
+
+.chart-container h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.bar-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.bar-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.bar-label {
+  font-weight: 600;
+  min-width: 60px;
+}
+
+.bar-wrapper {
+  flex: 1;
+  background: var(--muted);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.bar {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 1rem;
+  font-weight: 600;
+  color: white;
+  transition: width 1s ease;
+  border-radius: 999px;
+}
+
+.bar-before {
+  background: linear-gradient(90deg, #94A3B8, #64748B);
+}
+
+.bar-after {
+  background: linear-gradient(90deg, var(--accent-dark), var(--accent));
+}
+
+.results-analysis {
+  background: white;
+  padding: 2rem;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  margin-bottom: 3rem;
+}
+
+.results-analysis h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.analysis-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.analysis-point {
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  padding: 1rem;
+  background: var(--muted);
+  border-radius: 0.5rem;
+  border-left: 4px solid var(--primary);
+}
+
+.results-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .results-container {
+    margin: 2rem auto;
+  }
+  
+  .results-hero {
+    padding: 2rem 1rem;
+  }
+  
+  .results-status {
+    font-size: 2rem;
+  }
+  
+  .score-cards {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .bar-label {
+    min-width: 40px;
+    font-size: 0.875rem;
+  }
+  
+  .bar {
+    height: 32px;
+    font-size: 0.875rem;
+  }
+
+  .results-actions {
+    flex-direction: column;
+  }
+
+  .results-actions .btn {
+    width: 100%;
+  }
+}
+

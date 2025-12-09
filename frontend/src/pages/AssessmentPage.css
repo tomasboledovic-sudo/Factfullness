@@ -1,0 +1,299 @@
+.assessment-container {
+  max-width: 800px;
+  margin: 3rem auto;
+  padding-bottom: 3rem;
+  position: relative;
+}
+
+.assessment-container::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -100px;
+  width: 250px;
+  height: 250px;
+  background: var(--accent);
+  border-radius: 50%;
+  opacity: 0.05;
+  z-index: -1;
+}
+
+.assessment-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.assessment-header h1 {
+  font-size: 2.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--primary);
+  letter-spacing: -0.02em;
+}
+
+.assessment-header h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  margin-bottom: 2rem;
+}
+
+.progress-info {
+  font-size: 1.125rem;
+  color: var(--foreground);
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.navigation-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.navigation-buttons .btn {
+  flex: 1;
+  max-width: 200px;
+}
+
+.submitting-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.submitting-content {
+  background: white;
+  padding: 3rem;
+  border-radius: var(--radius);
+  text-align: center;
+  max-width: 400px;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid var(--secondary);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1.5rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.submitting-content p {
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+}
+
+.submitting-note {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+/* Results Modal */
+.results-modal {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+.results-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.results-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.score-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.score-circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(21, 123, 139, 0.3);
+}
+
+.score-number {
+  font-size: 3rem;
+  font-weight: 800;
+  color: white;
+}
+
+.score-text {
+  font-size: 1.25rem;
+  color: var(--muted-foreground);
+  font-weight: 500;
+}
+
+/* Detailed Results */
+.detailed-results {
+  margin-bottom: 3rem;
+}
+
+.detailed-results h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--foreground);
+}
+
+.result-item {
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  transition: all 0.2s ease;
+}
+
+.result-item.correct {
+  border-color: var(--accent);
+  background: #f0fdf9;
+}
+
+.result-item.incorrect {
+  border-color: var(--pink);
+  background: #fef5f7;
+}
+
+.result-number {
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.result-item.correct .result-number {
+  color: var(--accent-dark);
+}
+
+.result-item.incorrect .result-number {
+  color: var(--pink);
+}
+
+.result-question {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--foreground);
+}
+
+.result-answers {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.result-answer {
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.result-answer.wrong {
+  background: #fde8eb;
+  color: #9c3649;
+}
+
+.result-answer.correct-answer {
+  background: #d4f4f1;
+  color: #0d5e57;
+}
+
+.result-answer strong {
+  display: block;
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+  opacity: 0.8;
+}
+
+/* Results Actions */
+.results-actions {
+  text-align: center;
+}
+
+.btn-large {
+  padding: 1rem 3rem;
+  font-size: 1.125rem;
+  min-width: 300px;
+}
+
+@media (max-width: 768px) {
+  .assessment-container {
+    margin: 2rem auto;
+    padding: 0;
+  }
+  
+  .assessment-header h1 {
+    font-size: 2rem;
+  }
+  
+  .assessment-header h2 {
+    font-size: 1.25rem;
+  }
+  
+  .navigation-buttons {
+    flex-direction: column;
+  }
+  
+  .navigation-buttons .btn {
+    max-width: none;
+  }
+
+  .results-modal {
+    padding: 1rem;
+    margin: 1rem auto;
+  }
+
+  .results-header h1 {
+    font-size: 2rem;
+  }
+
+  .score-circle {
+    width: 120px;
+    height: 120px;
+  }
+
+  .score-number {
+    font-size: 2.5rem;
+  }
+
+  .btn-large {
+    min-width: auto;
+    width: 100%;
+    padding: 1rem 2rem;
+  }
+
+  .result-item {
+    padding: 1rem;
+  }
+}
+
