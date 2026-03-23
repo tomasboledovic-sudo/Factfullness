@@ -3,19 +3,12 @@ import './ContentSection.css';
 
 function ContentSection({ section }) {
   return (
-    <div className={`content-section section-${section.type}`}>
+    <div className="content-section">
       {section.heading && (
-        <div className="section-heading-wrapper">
-          <ReactMarkdown>{section.heading}</ReactMarkdown>
-        </div>
+        <h2 className="section-heading">{section.heading}</h2>
       )}
-      
       <div className="section-content">
         <ReactMarkdown>{section.content}</ReactMarkdown>
-      </div>
-      
-      <div className="section-meta">
-        <span className="reading-time">⏱️ ~{section.estimatedMinutes} min čítania</span>
       </div>
     </div>
   );

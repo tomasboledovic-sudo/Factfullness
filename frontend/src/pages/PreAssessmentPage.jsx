@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { API_BASE_URL } from '../config';
 import Navigation from '../components/Navigation';
@@ -13,14 +13,25 @@ function PreAssessmentPage() {
   const [submitting, setSubmitting] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [testResults, setTestResults] = useState(null);
+  const [contentReady, setContentReady] = useState(false);
+  const [generatingMessage, setGeneratingMessage] = useState('Generujem učebné materiály...');
   const [questions, setQuestions] = useState([]);
   const [topicTitle, setTopicTitle] = useState('');
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState({});
   const [startTime] = useState(Date.now());
+  
+  const pollingRef = useRef(null);
 
   useEffect(() => {
     fetchQuestions();
+    
+    // Cleanup polling on unmount
+    return () => {
+      if (pollingRef.current) {
+        clearInterval(pollingRef.current);
+      }
+    };
   }, [sessionId]);
 
   const fetchQuestions = async () => {
@@ -42,6 +53,50 @@ function PreAssessmentPage() {
     } finally {
       setLoading(false);
     }
+  };
+
+  // Polling pre stav generovania
+  const startPolling = () => {
+    let attempts = 0;
+    const maxAttempts = 60; // Max 2 minúty (60 * 2s)
+    
+    const messages = [
+      'Generujem učebné materiály...',
+      'Analyzujem tvoje odpovede...',
+      'Prispôsobujem obsah tvojim potrebám...',
+      'Vytváram personalizovaný test...',
+      'Dokončujem generovanie...'
+    ];
+    
+    pollingRef.current = setInterval(async () => {
+      attempts++;
+      
+      // Rotácia správ
+      setGeneratingMessage(messages[Math.min(Math.floor(attempts / 4), messages.length - 1)]);
+      
+      try {
+        const response = await fetch(`${API_BASE_URL}/sessions/${sessionId}/content/status`);
+        const data = await response.json();
+        
+        if (data.success && data.data.ready) {
+          clearInterval(pollingRef.current);
+          setContentReady(true);
+          setGeneratingMessage('Učebné materiály sú pripravené!');
+        } else if (data.data.status === 'error') {
+          clearInterval(pollingRef.current);
+          setGeneratingMessage('Chyba pri generovaní. Skúste znova.');
+        }
+      } catch (err) {
+        console.error('Polling error:', err);
+      }
+      
+      // Timeout po 2 minútach
+      if (attempts >= maxAttempts) {
+        clearInterval(pollingRef.current);
+        setContentReady(true); // Aj tak povoliť pokračovanie
+        setGeneratingMessage('Generovanie trvá dlhšie. Môžete pokračovať.');
+      }
+    }, 2000);
   };
 
   const handleAnswer = (questionId, selectedOptionIndex) => {
@@ -68,7 +123,6 @@ function PreAssessmentPage() {
   };
 
   const handleSubmit = async () => {
-    // Kontrola, či sú všetky otázky zodpovedané
     const answeredCount = Object.keys(answers).length;
     if (answeredCount < questions.length) {
       alert(`Prosím odpovedzte na všetky otázky (${answeredCount}/${questions.length})`);
@@ -96,10 +150,13 @@ function PreAssessmentPage() {
       if (data.success) {
         localStorage.setItem('preTestScore', data.data.preTestScore.percentage);
         
-        // Zobrazenie výsledkov
+        // Okamžite zobraziť výsledky
         setTestResults(data.data);
         setShowResults(true);
         setSubmitting(false);
+        
+        // Spustiť polling pre generovanie na pozadí
+        startPolling();
       } else {
         alert(`Chyba: ${data.error?.message || 'Nepodarilo sa odoslať test'}`);
         setSubmitting(false);
@@ -112,12 +169,15 @@ function PreAssessmentPage() {
   };
 
   const handleContinue = () => {
+    if (pollingRef.current) {
+      clearInterval(pollingRef.current);
+    }
     navigate(`/session/${sessionId}/learning`);
   };
 
   if (loading) {
     return (
-      <div className="container">
+      <div className="page-wrapper">
         <Navigation />
         <div className="loading">Načítavam test...</div>
       </div>
@@ -129,10 +189,10 @@ function PreAssessmentPage() {
     const { preTestScore, detailedResults } = testResults;
     
     return (
-      <div className="container">
+      <div className="page-wrapper">
         <Navigation />
         
-        <div className="results-modal">
+        <div className="results-container">
           <div className="results-header">
             <h1>Výsledky Vstupného Testu</h1>
             <div className="score-display">
@@ -170,9 +230,20 @@ function PreAssessmentPage() {
             ))}
           </div>
 
+          {/* Status generovania */}
+          <div className={`generation-status ${contentReady ? 'ready' : 'generating'}`}>
+            {!contentReady && <div className="mini-spinner"></div>}
+            <span>{generatingMessage}</span>
+            {contentReady && <span className="check-icon">✓</span>}
+          </div>
+
           <div className="results-actions">
-            <button onClick={handleContinue} className="btn btn-primary btn-large">
-              Pokračovať na Učebné Materiály →
+            <button 
+              onClick={handleContinue} 
+              className={`btn btn-primary btn-large ${!contentReady ? 'btn-waiting' : ''}`}
+              disabled={!contentReady}
+            >
+              {contentReady ? 'Pokračovať na Učebné Materiály →' : 'Čakám na materiály...'}
             </button>
           </div>
         </div>
@@ -185,13 +256,13 @@ function PreAssessmentPage() {
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
 
   return (
-    <div className="container">
+    <div className="page-wrapper">
       <Navigation />
       
       <div className="assessment-container">
         <div className="assessment-header">
           <h1>Vstupný Test</h1>
-          <h2>{topicTitle}</h2>
+          <p className="test-description">{topicTitle}</p>
           <div className="progress-info">
             Otázka {currentQuestionIndex + 1} z {questions.length}
           </div>
@@ -229,7 +300,7 @@ function PreAssessmentPage() {
               className="btn btn-primary"
               disabled={submitting || Object.keys(answers).length < questions.length}
             >
-              {submitting ? 'Generujem materiály...' : 'Odoslať Test'}
+              {submitting ? 'Odosielam...' : 'Odoslať Test'}
             </button>
           )}
         </div>
@@ -238,7 +309,7 @@ function PreAssessmentPage() {
           <div className="submitting-overlay">
             <div className="submitting-content">
               <div className="spinner"></div>
-              <p>Vyhodnocujem test a generujem personalizovaný obsah...</p>
+              <p>Vyhodnocujem test...</p>
             </div>
           </div>
         )}
@@ -248,4 +319,3 @@ function PreAssessmentPage() {
 }
 
 export default PreAssessmentPage;
-

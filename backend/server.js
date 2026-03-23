@@ -7,6 +7,7 @@ import assessmentRoutes from './routes/assessmentRoutes.js';
 import topicRoutes from './routes/topicRoutes.js';
 import sessionRoutes from './routes/sessionRoutes.js';
 import contentRoutes from './routes/contentRoutes.js';
+import authRoutes from './routes/authRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -28,7 +29,10 @@ envLines.forEach(line => {
 });
 
 process.env.GEMINI_API_KEY = envVars.GEMINI_API_KEY;
+process.env.JWT_SECRET = envVars.JWT_SECRET || 'learnflow-secret-key-2026';
 process.env.PORT = envVars.PORT || '3000';
+process.env.SUPABASE_URL = envVars.SUPABASE_URL;
+process.env.SUPABASE_ANON_KEY = envVars.SUPABASE_ANON_KEY;
 
 // Middleware
 app.use(cors());
@@ -41,6 +45,7 @@ app.use((req, res, next) => {
 });
 
 // Routes
+app.use('/api/auth', authRoutes);
 app.use('/api/topics', topicRoutes);
 app.use('/api/sessions', sessionRoutes);
 app.use('/api/sessions', assessmentRoutes);
@@ -82,5 +87,6 @@ app.use((req, res) => {
 app.listen(PORT, () => {
     console.log(`🚀 Server beží na http://localhost:${PORT}`);
     console.log(`✅ Gemini API key: ${process.env.GEMINI_API_KEY ? 'Načítaný' : 'CHÝBA!'}`);
+    console.log(`✅ Supabase URL: ${process.env.SUPABASE_URL ? 'Načítaná' : 'CHÝBA!'}`);
 });
 

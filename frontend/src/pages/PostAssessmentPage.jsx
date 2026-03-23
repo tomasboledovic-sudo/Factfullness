@@ -81,47 +81,38 @@ function PostAssessmentPage() {
     setSubmitting(true);
 
     try {
-      // Simulácia post-test submit
-      // V produkcii by ste volali POST /api/sessions/:sessionId/post-test/submit
-      
-      // Pre demo vypočítame skóre lokálne (v produkcii to robí backend)
-      const preTestScore = parseFloat(localStorage.getItem('preTestScore') || 0);
-      
-      // Vytvorenie detailných výsledkov
-      const detailedResults = questions.map((question) => {
-        const userAnswer = answers[question.id];
-        const correctAnswer = question.correctAnswer;
-        const wasCorrect = userAnswer?.selectedOptionIndex === correctAnswer;
-        
-        return {
-          questionId: question.id,
-          questionText: question.questionText,
-          userSelectedOption: question.options[userAnswer?.selectedOptionIndex],
-          correctOption: question.options[correctAnswer],
-          selectedOptionIndex: userAnswer?.selectedOptionIndex,
-          correctAnswerIndex: correctAnswer,
-          wasCorrect: wasCorrect
-        };
-      });
-      
-      const correctCount = detailedResults.filter(r => r.wasCorrect).length;
-      const percentage = Math.round((correctCount / questions.length) * 100 * 10) / 10;
-      
-      localStorage.setItem('postTestScore', percentage);
-      localStorage.setItem('improvement', (percentage - preTestScore).toFixed(1));
-      
-      // Zobrazenie výsledkov
-      setTestResults({
-        postTestScore: {
-          percentage,
-          correctAnswers: correctCount,
-          totalQuestions: questions.length,
-          incorrectAnswers: questions.length - correctCount
+      // Volanie backend API
+      const response = await fetch(`${API_BASE_URL}/sessions/${sessionId}/post-test/submit`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        detailedResults
+        body: JSON.stringify({
+          answers: Object.values(answers),
+          timeSpentSeconds
+        })
       });
-      setShowResults(true);
-      setSubmitting(false);
+
+      const data = await response.json();
+
+      if (data.success) {
+        const { postTestScore, detailedResults, improvement } = data.data;
+        
+        // Uloženie do localStorage
+        localStorage.setItem('postTestScore', postTestScore.percentage);
+        localStorage.setItem('improvement', improvement.toFixed(1));
+        
+        // Zobrazenie výsledkov
+        setTestResults({
+          postTestScore,
+          detailedResults
+        });
+        setShowResults(true);
+        setSubmitting(false);
+      } else {
+        alert(`Chyba: ${data.error?.message || 'Nepodarilo sa odoslať test'}`);
+        setSubmitting(false);
+      }
     } catch (err) {
       alert('Chyba pri odosielaní testu');
       console.error(err);

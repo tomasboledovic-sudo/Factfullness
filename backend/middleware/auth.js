@@ -1,0 +1,52 @@
+import jwt from 'jsonwebtoken';
+
+/**
+ * Voliteľný JWT middleware — nastaví req.userId ak je token platný,
+ * ale neprerušuje request ak token chýba alebo je neplatný.
+ */
+export function optionalAuth(req, res, next) {
+    const authHeader = req.headers['authorization'];
+
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        req.userId = null;
+        return next();
+    }
+
+    const token = authHeader.split(' ')[1];
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.userId = decoded.userId;
+    } catch {
+        req.userId = null;
+    }
+
+    next();
+}
+
+/**
+ * Povinný JWT middleware — vráti 401 ak token chýba alebo je neplatný.
+ */
+export function requireAuth(req, res, next) {
+    const authHeader = req.headers['authorization'];
+
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return res.status(401).json({
+            success: false,
+            error: { code: 'UNAUTHORIZED', message: 'Prihlásenie je vyžadované' }
+        });
+    }
+
+    const token = authHeader.split(' ')[1];
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.userId = decoded.userId;
+        next();
+    } catch {
+        return res.status(401).json({
+            success: false,
+            error: { code: 'INVALID_TOKEN', message: 'Token je neplatný alebo expiroval' }
+        });
+    }
+}

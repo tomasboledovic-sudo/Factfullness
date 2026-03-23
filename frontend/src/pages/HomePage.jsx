@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { API_BASE_URL } from '../config';
+import { useAuth } from '../context/AuthContext';
 import Navigation from '../components/Navigation';
 import TopicCard from '../components/TopicCard';
 import './HomePage.css';
@@ -10,6 +11,7 @@ function HomePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { getAuthHeaders } = useAuth();
 
   useEffect(() => {
     fetchTopics();
@@ -35,14 +37,13 @@ function HomePage() {
 
   const handleStartLearning = async (topicId) => {
     try {
-      // Nájdenie témy pre uloženie
       const topic = topics.find(t => t.id === topicId);
       
-      // Vytvorenie novej session
       const response = await fetch(`${API_BASE_URL}/sessions`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          ...getAuthHeaders()
         },
         body: JSON.stringify({ topicId })
       });
@@ -56,7 +57,6 @@ function HomePage() {
         localStorage.setItem('currentTopicId', topicId);
         localStorage.setItem('currentTopicTitle', topic?.title || '');
         
-        // Navigácia na vstupný test
         navigate(`/session/${sessionId}/pre-test`);
       } else {
         alert('Nepodarilo sa vytvoriť reláciu');
@@ -69,7 +69,7 @@ function HomePage() {
 
   if (loading) {
     return (
-      <div className="container">
+      <div className="page-wrapper">
         <Navigation />
         <div className="loading">Načítavam témy...</div>
       </div>
@@ -78,7 +78,7 @@ function HomePage() {
 
   if (error) {
     return (
-      <div className="container">
+      <div className="page-wrapper">
         <Navigation />
         <div className="error">{error}</div>
       </div>
@@ -86,25 +86,22 @@ function HomePage() {
   }
 
   return (
-    <div className="container">
+    <div className="page-wrapper">
       <Navigation />
       
       <section className="hero">
         <div className="hero-content">
           <h1>
-            Učte sa <span className="italic">interaktívne</span>
+            Nauč sa čokoľvek za <span className="italic">10 minút</span>
           </h1>
           <p className="lead">
-            AI asistent, ktorý je efektívny a zábavný.
-          </p>
-          <p>
-            Experimentujte s najnovšími AI technológiami.
+            AI vytvorí personalizované materiály na základe tvojich vedomostí
           </p>
         </div>
       </section>
 
       <section className="topics-section">
-        <h2 className="section-title">Dostupné Témy</h2>
+        <h2 className="section-title">Vyber si tému</h2>
         <div className="topics-grid">
           {topics.map((topic) => (
             <TopicCard 
@@ -120,4 +117,3 @@ function HomePage() {
 }
 
 export default HomePage;
-

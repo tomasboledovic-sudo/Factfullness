@@ -1,10 +1,27 @@
 import express from 'express';
-import { getPreTest, submitPreTest } from '../controllers/assessmentController.js';
+import { 
+    getPreTest, 
+    submitPreTest, 
+    submitPostTest, 
+    getContentStatus,
+    getTestStatus,
+    startTestGeneration
+} from '../controllers/assessmentController.js';
 
 const router = express.Router();
 
+// Vstupný test
 router.get('/:sessionId/pre-test', getPreTest);
 router.post('/:sessionId/pre-test/submit', submitPreTest);
 
-export default router;
+// Status generovania
+router.get('/:sessionId/content/status', getContentStatus);
+router.get('/:sessionId/test/status', getTestStatus);
 
+// Spustenie generovania záverečného testu
+router.post('/:sessionId/generate-test', startTestGeneration);
+
+// Záverečný test
+router.post('/:sessionId/post-test/submit', submitPostTest);
+
+export default router;

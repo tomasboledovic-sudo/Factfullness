@@ -1,10 +1,31 @@
-import { readFileSync, writeFileSync } from 'fs';
-import { v4 as uuidv4 } from 'uuid';
-import { generateLearningContent } from '../services/geminiService.js';
+import { readFileSync } from 'fs';
+import { generateLearningContent, generateFinalTest } from '../services/geminiService.js';
+import supabase from '../services/supabaseClient.js';
+
+const generationStatus = new Map();
+
+// Helper: načítaj session zo Supabase
+async function fetchSession(sessionId) {
+    const { data, error } = await supabase
+        .from('sessions')
+        .select('*')
+        .eq('id', sessionId)
+        .maybeSingle();
+    if (error) throw error;
+    return data;
+}
+
+// Helper: aktualizuj session
+async function updateSession(sessionId, fields) {
+    const { error } = await supabase
+        .from('sessions')
+        .update(fields)
+        .eq('id', sessionId);
+    if (error) throw error;
+}
 
 /**
  * POST /api/sessions/:sessionId/pre-test/submit
- * Odoslanie odpovedí vstupného testu + generovanie obsahu cez Gemini API
  */
 export async function submitPreTest(req, res, next) {
     try {
@@ -12,68 +33,29 @@ export async function submitPreTest(req, res, next) {
         const { answers, timeSpentSeconds } = req.body;
 
         console.log(`📝 Spracovávam vstupný test pre session: ${sessionId}`);
-        console.log(`   Počet odpovedí: ${answers.length}`);
-        console.log(`   Čas: ${timeSpentSeconds}s`);
 
-        // 1. Validácia vstupu
         if (!answers || !Array.isArray(answers) || answers.length === 0) {
             return res.status(400).json({
                 success: false,
-                error: {
-                    code: 'INVALID_INPUT',
-                    message: 'Odpovede musia byť neprázdne pole',
-                    details: { field: 'answers' }
-                }
+                error: { code: 'INVALID_INPUT', message: 'Odpovede musia byť neprázdne pole' }
             });
         }
 
-        // 2. Načítanie session
-        const sessions = JSON.parse(readFileSync('./data/sessions.json', 'utf8'));
-        const session = sessions[sessionId];
-
+        const session = await fetchSession(sessionId);
         if (!session) {
-            return res.status(404).json({
-                success: false,
-                error: {
-                    code: 'SESSION_NOT_FOUND',
-                    message: 'Session s daným ID neexistuje'
-                }
-            });
+            return res.status(404).json({ success: false, error: { code: 'SESSION_NOT_FOUND', message: 'Session neexistuje' } });
         }
-
-        // 3. Kontrola statusu
         if (session.status !== 'pre_assessment') {
-            return res.status(409).json({
-                success: false,
-                error: {
-                    code: 'INVALID_SESSION_STATUS',
-                    message: 'Session nie je v správnom stave',
-                    details: {
-                        currentStatus: session.status,
-                        expectedStatus: 'pre_assessment'
-                    }
-                }
-            });
+            return res.status(409).json({ success: false, error: { code: 'INVALID_SESSION_STATUS', message: 'Session nie je v správnom stave' } });
         }
 
-        // 4. Načítanie otázok a správnych odpovedí
         const allQuestions = JSON.parse(readFileSync('./data/preTestQuestions.json', 'utf8'));
-        const questions = allQuestions[session.topicId.toString()];
+        const questions = allQuestions[session.topic_id.toString()];
+        if (!questions) throw new Error('Otázky pre túto tému neboli nájdené');
 
-        if (!questions) {
-            throw new Error('Otázky pre túto tému neboli nájdené');
-        }
-
-        // 5. Vyhodnotenie odpovedí
         const evaluatedAnswers = answers.map(answer => {
             const question = questions.find(q => q.id === answer.questionId);
-            
-            if (!question) {
-                throw new Error(`Otázka ${answer.questionId} neexistuje`);
-            }
-
-            const isCorrect = answer.selectedOptionIndex === question.correctAnswer;
-
+            if (!question) throw new Error(`Otázka ${answer.questionId} neexistuje`);
             return {
                 questionId: answer.questionId,
                 questionText: question.questionText,
@@ -81,99 +63,195 @@ export async function submitPreTest(req, res, next) {
                 correctOption: question.options[question.correctAnswer],
                 selectedOptionIndex: answer.selectedOptionIndex,
                 correctAnswerIndex: question.correctAnswer,
-                wasCorrect: isCorrect,
+                wasCorrect: answer.selectedOptionIndex === question.correctAnswer,
                 answeredAt: answer.answeredAt
             };
         });
 
-        // 6. Výpočet skóre
         const correctCount = evaluatedAnswers.filter(a => a.wasCorrect).length;
         const totalCount = evaluatedAnswers.length;
         const percentage = Math.round((correctCount / totalCount) * 100 * 10) / 10;
 
-        const preTestScore = {
-            percentage,
-            correctAnswers: correctCount,
-            totalQuestions: totalCount,
-            incorrectAnswers: totalCount - correctCount
-        };
-
         console.log(`✅ Skóre: ${percentage}% (${correctCount}/${totalCount})`);
 
-        // 7. Uloženie odpovedí do session
-        session.preTestAnswers = evaluatedAnswers;
-        session.preTestScore = percentage;
-        session.status = 'generating_content';
-        session.preTestCompletedAt = new Date().toISOString();
-        session.preTestTimeSeconds = timeSpentSeconds;
+        await updateSession(sessionId, {
+            pre_test_answers: evaluatedAnswers,
+            pre_test_score: percentage,
+            status: 'generating_content'
+        });
 
-        // Uloženie session (pred Gemini volaním)
-        sessions[sessionId] = session;
-        writeFileSync('./data/sessions.json', JSON.stringify(sessions, null, 2));
+        generationStatus.set(sessionId, { status: 'generating_content', startedAt: Date.now() });
 
-        // 8. Príprava dát pre Gemini API
-        const topics = JSON.parse(readFileSync('./data/topics.json', 'utf8'));
-        const topic = topics.find(t => t.id === session.topicId);
-
-        if (!topic) {
-            throw new Error('Téma nebola nájdená');
-        }
-
-        const testResults = {
-            score: percentage,
-            totalQuestions: totalCount,
-            correctAnswers: correctCount,
-            detailedAnswers: evaluatedAnswers
-        };
-
-        // 9. 🤖 VOLANIE GEMINI API (jediné volanie!)
-        console.log('🤖 Volám Gemini API na generovanie obsahu...');
-        
-        let generatedContent;
-        try {
-            generatedContent = await generateLearningContent(topic, testResults);
-        } catch (geminiError) {
-            console.error('❌ Gemini API zlyhalo:', geminiError);
-            
-            // Rollback session status
-            session.status = 'pre_assessment';
-            sessions[sessionId] = session;
-            writeFileSync('./data/sessions.json', JSON.stringify(sessions, null, 2));
-
-            return res.status(500).json({
-                success: false,
-                error: {
-                    code: 'CONTENT_GENERATION_FAILED',
-                    message: 'Nepodarilo sa vygenerovať učebný materiál. Skúste to neskôr.',
-                    details: geminiError.message
-                }
-            });
-        }
-
-        // 10. Uloženie vygenerovaného obsahu do session
-        session.generatedContent = generatedContent;
-        session.status = 'learning';
-        session.contentGeneratedAt = new Date().toISOString();
-
-        // Uloženie finálneho stavu
-        sessions[sessionId] = session;
-        writeFileSync('./data/sessions.json', JSON.stringify(sessions, null, 2));
-
-        console.log('✅ Obsah úspešne vygenerovaný a uložený');
-
-        // 11. Response
         res.json({
             success: true,
             data: {
                 sessionId,
-                preTestScore,
+                preTestScore: { percentage, correctAnswers: correctCount, totalQuestions: totalCount, incorrectAnswers: totalCount - correctCount },
                 detailedResults: evaluatedAnswers,
-                contentGenerated: true,
-                status: 'learning',
-                message: 'Učebný materiál bol úspešne vygenerovaný'
+                contentStatus: 'generating',
+                message: 'Test vyhodnotený. Učebné materiály sa generujú.'
             }
         });
 
+        generateContentInBackground(sessionId, session.topic_id, {
+            score: percentage,
+            totalQuestions: totalCount,
+            correctAnswers: correctCount,
+            detailedAnswers: evaluatedAnswers
+        });
+
+    } catch (error) {
+        next(error);
+    }
+}
+
+async function generateContentInBackground(sessionId, topicId, testResults) {
+    try {
+        console.log(`🔄 [POZADIE] Generujem učebné materiály pre session: ${sessionId}`);
+        const topics = JSON.parse(readFileSync('./data/topics.json', 'utf8'));
+        const topic = topics.find(t => t.id === topicId);
+        if (!topic) throw new Error('Téma nebola nájdená');
+
+        const generatedContent = await generateLearningContent(topic, testResults);
+
+        await updateSession(sessionId, {
+            generated_content: generatedContent,
+            status: 'content_ready',
+            content_generated_at: new Date().toISOString()
+        });
+
+        generationStatus.set(sessionId, { status: 'content_ready', completedAt: Date.now() });
+        console.log(`✅ [POZADIE] Učebné materiály hotové pre session: ${sessionId}`);
+
+    } catch (error) {
+        console.error(`❌ [POZADIE] Chyba:`, error.message);
+        generationStatus.set(sessionId, { status: 'error', error: error.message });
+        try { await updateSession(sessionId, { status: 'generation_failed' }); } catch (e) {}
+    }
+}
+
+/**
+ * POST /api/sessions/:sessionId/generate-test
+ */
+export async function startTestGeneration(req, res, next) {
+    try {
+        const { sessionId } = req.params;
+        console.log(`🎯 Spúšťam generovanie záverečného testu pre session: ${sessionId}`);
+
+        const session = await fetchSession(sessionId);
+        if (!session) {
+            return res.status(404).json({ success: false, error: { code: 'SESSION_NOT_FOUND', message: 'Session neexistuje' } });
+        }
+
+        if (session.generated_content?.finalTest?.questions?.length > 0) {
+            return res.json({ success: true, data: { status: 'ready', message: 'Test už existuje' } });
+        }
+
+        if (!session.generated_content?.sections) {
+            return res.status(400).json({ success: false, error: { code: 'NO_CONTENT', message: 'Učebné materiály ešte nie sú vygenerované' } });
+        }
+
+        await updateSession(sessionId, {
+            status: session.status === 'content_ready' ? 'learning' : session.status,
+            test_generation_started_at: new Date().toISOString()
+        });
+
+        generationStatus.set(`${sessionId}_test`, { status: 'generating', startedAt: Date.now() });
+
+        res.json({ success: true, data: { status: 'generating', message: 'Záverečný test sa generuje na pozadí' } });
+
+        generateTestInBackground(sessionId);
+
+    } catch (error) {
+        next(error);
+    }
+}
+
+async function generateTestInBackground(sessionId) {
+    try {
+        console.log(`🔄 [POZADIE] Generujem záverečný test pre session: ${sessionId}`);
+
+        const session = await fetchSession(sessionId);
+        if (!session?.generated_content) throw new Error('Session alebo učebný obsah neexistuje');
+
+        const topics = JSON.parse(readFileSync('./data/topics.json', 'utf8'));
+        const topic = topics.find(t => t.id === session.topic_id);
+        if (!topic) throw new Error('Téma nebola nájdená');
+
+        const preAnswers = session.pre_test_answers || [];
+        const originalTestResults = {
+            score: session.pre_test_score,
+            totalQuestions: preAnswers.length,
+            correctAnswers: preAnswers.filter(a => a.wasCorrect).length,
+            detailedAnswers: preAnswers
+        };
+
+        const finalTest = await generateFinalTest(topic, session.generated_content, originalTestResults);
+
+        const updatedContent = { ...session.generated_content, finalTest };
+        await updateSession(sessionId, {
+            generated_content: updatedContent,
+            test_generated_at: new Date().toISOString()
+        });
+
+        generationStatus.set(`${sessionId}_test`, { status: 'ready', completedAt: Date.now() });
+        console.log(`✅ [POZADIE] Záverečný test hotový pre session: ${sessionId}`);
+
+    } catch (error) {
+        console.error(`❌ [POZADIE] Chyba pri generovaní testu:`, error.message);
+        generationStatus.set(`${sessionId}_test`, { status: 'error', error: error.message });
+    }
+}
+
+/**
+ * GET /api/sessions/:sessionId/content/status
+ */
+export async function getContentStatus(req, res, next) {
+    try {
+        const { sessionId } = req.params;
+        const session = await fetchSession(sessionId);
+
+        if (!session) {
+            return res.status(404).json({ success: false, error: { code: 'SESSION_NOT_FOUND', message: 'Session neexistuje' } });
+        }
+
+        let status = 'unknown', ready = false;
+        if (session.generated_content && session.status !== 'generating_content') {
+            status = 'ready'; ready = true;
+        } else if (session.status === 'generating_content') {
+            status = 'generating';
+        } else if (session.status === 'generation_failed') {
+            status = 'error';
+        }
+
+        res.json({ success: true, data: { sessionId, status, ready, sessionStatus: session.status } });
+    } catch (error) {
+        next(error);
+    }
+}
+
+/**
+ * GET /api/sessions/:sessionId/test/status
+ */
+export async function getTestStatus(req, res, next) {
+    try {
+        const { sessionId } = req.params;
+        const session = await fetchSession(sessionId);
+
+        if (!session) {
+            return res.status(404).json({ success: false, error: { code: 'SESSION_NOT_FOUND', message: 'Session neexistuje' } });
+        }
+
+        const hasTest = session.generated_content?.finalTest?.questions?.length > 0;
+        res.json({
+            success: true,
+            data: {
+                sessionId,
+                status: hasTest ? 'ready' : 'generating',
+                ready: hasTest,
+                questionCount: hasTest ? session.generated_content.finalTest.questions.length : 0
+            }
+        });
     } catch (error) {
         next(error);
     }
@@ -181,62 +259,107 @@ export async function submitPreTest(req, res, next) {
 
 /**
  * GET /api/sessions/:sessionId/pre-test
- * Načítanie otázok vstupného testu
  */
 export async function getPreTest(req, res, next) {
     try {
         const { sessionId } = req.params;
-
-        // Načítanie session
-        const sessions = JSON.parse(readFileSync('./data/sessions.json', 'utf8'));
-        const session = sessions[sessionId];
+        const session = await fetchSession(sessionId);
 
         if (!session) {
-            return res.status(404).json({
-                success: false,
-                error: {
-                    code: 'SESSION_NOT_FOUND',
-                    message: 'Session s daným ID neexistuje'
-                }
-            });
+            return res.status(404).json({ success: false, error: { code: 'SESSION_NOT_FOUND', message: 'Session neexistuje' } });
         }
 
-        // Načítanie otázok (BEZ správnych odpovedí!)
         const allQuestions = JSON.parse(readFileSync('./data/preTestQuestions.json', 'utf8'));
-        const questions = allQuestions[session.topicId.toString()];
+        const questions = allQuestions[session.topic_id.toString()];
 
         if (!questions) {
-            return res.status(404).json({
-                success: false,
-                error: {
-                    code: 'QUESTIONS_NOT_FOUND',
-                    message: 'Otázky pre túto tému neboli nájdené'
-                }
-            });
+            return res.status(404).json({ success: false, error: { code: 'QUESTIONS_NOT_FOUND', message: 'Otázky neboli nájdené' } });
         }
 
-        // Načítanie témy
         const topics = JSON.parse(readFileSync('./data/topics.json', 'utf8'));
-        const topic = topics.find(t => t.id === session.topicId);
-
-        // Odstránenie správnych odpovedí (bezpečnosť)
-        const questionsWithoutAnswers = questions.map(q => ({
-            id: q.id,
-            questionNumber: q.order,
-            questionText: q.questionText,
-            questionType: q.questionType,
-            options: q.options
-            // correctAnswer NIE JE ZAHRNUTÉ!
-        }));
+        const topic = topics.find(t => t.id === session.topic_id);
 
         res.json({
             success: true,
             data: {
                 sessionId,
-                topicId: session.topicId,
+                topicId: session.topic_id,
                 topicTitle: topic?.title || 'Neznáma téma',
                 totalQuestions: questions.length,
-                questions: questionsWithoutAnswers
+                questions: questions.map(q => ({
+                    id: q.id,
+                    questionNumber: q.order,
+                    questionText: q.questionText,
+                    questionType: q.questionType,
+                    options: q.options
+                }))
+            }
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+
+/**
+ * POST /api/sessions/:sessionId/post-test/submit
+ */
+export async function submitPostTest(req, res, next) {
+    try {
+        const { sessionId } = req.params;
+        const { answers, timeSpentSeconds } = req.body;
+
+        console.log(`📝 Spracovávam záverečný test pre session: ${sessionId}`);
+
+        const session = await fetchSession(sessionId);
+        if (!session) {
+            return res.status(404).json({ success: false, error: { code: 'SESSION_NOT_FOUND', message: 'Session neexistuje' } });
+        }
+
+        const finalTest = session.generated_content?.finalTest;
+        if (!finalTest?.questions) {
+            return res.status(400).json({ success: false, error: { code: 'NO_FINAL_TEST', message: 'Záverečný test neexistuje' } });
+        }
+
+        const evaluatedAnswers = answers.map((answer, index) => {
+            const question = finalTest.questions[index];
+            if (!question) return { questionId: index, wasCorrect: false, error: 'Otázka nenájdená' };
+            const userSelectedText = question.options[answer.selectedOptionIndex];
+            return {
+                questionId: answer.questionId || index,
+                questionText: question.question,
+                userSelectedOption: userSelectedText,
+                correctOption: question.correctOption,
+                selectedOptionIndex: answer.selectedOptionIndex,
+                wasCorrect: userSelectedText === question.correctOption
+            };
+        });
+
+        const correctCount = evaluatedAnswers.filter(a => a.wasCorrect).length;
+        const totalCount = evaluatedAnswers.length;
+        const percentage = Math.round((correctCount / totalCount) * 100 * 10) / 10;
+        const improvement = percentage - (session.pre_test_score || 0);
+
+        console.log(`✅ Záverečné skóre: ${percentage}% | Zlepšenie: ${improvement > 0 ? '+' : ''}${improvement.toFixed(1)}%`);
+
+        await updateSession(sessionId, {
+            post_test_answers: evaluatedAnswers,
+            post_test_score: percentage,
+            status: 'completed',
+            completed: true,
+            post_test_completed_at: new Date().toISOString(),
+            post_test_time_seconds: timeSpentSeconds
+        });
+
+        res.json({
+            success: true,
+            data: {
+                sessionId,
+                postTestScore: { percentage, correctAnswers: correctCount, totalQuestions: totalCount, incorrectAnswers: totalCount - correctCount },
+                detailedResults: evaluatedAnswers,
+                preTestScore: session.pre_test_score || 0,
+                improvement,
+                status: 'completed',
+                message: 'Test vyhodnotený'
             }
         });
 
@@ -244,4 +367,3 @@ export async function getPreTest(req, res, next) {
         next(error);
     }
 }
-

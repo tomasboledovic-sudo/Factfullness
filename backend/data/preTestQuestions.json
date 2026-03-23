@@ -3,39 +3,41 @@
     {
       "id": "q1-pre-topic1",
       "topicId": 1,
-      "questionText": "Čo je fotosyntéza?",
+      "questionText": "Čo je bunka?",
       "questionType": "multiple_choice",
       "options": [
-        "Proces, pri ktorom rastliny vytvárajú kyslík",
-        "Proces, pri ktorom rastliny získavajú energiu zo svetla",
-        "Proces, pri ktorom rastliny pijú vodu",
-        "Proces, pri ktorom rastliny rastú"
+        "Najmenšia jednotka života",
+        "Súbor orgánov",
+        "Typ molekuly",
+        "Druh tkaniva"
       ],
-      "correctAnswer": 1,
+      "correctAnswer": 0,
       "order": 1
     },
     {
       "id": "q2-pre-topic1",
       "topicId": 1,
-      "questionText": "V ktorej časti rastliny prebieha fotosyntéza?",
+      "questionText": "Aký je rozdiel medzi prokaryotickou a eukaryotickou bunkou?",
       "questionType": "multiple_choice",
       "options": [
-        "V koreňoch",
-        "V stonke",
-        "V listoch (chloroplasty)",
-        "V kvete"
+        "Prokaryotická bunka nemá jadro, eukaryotická má",
+        "Prokaryotická bunka je väčšia",
+        "Eukaryotická bunka nemá membránu",
+        "Prokaryotická bunka má mitochondrie"
       ],
-      "correctAnswer": 2,
+      "correctAnswer": 0,
       "order": 2
     },
     {
       "id": "q3-pre-topic1",
       "topicId": 1,
-      "questionText": "Fotosyntéza potrebuje svetlo na fungovanie.",
-      "questionType": "true_false",
+      "questionText": "Ktoré organizmy majú prokaryotické bunky?",
+      "questionType": "multiple_choice",
       "options": [
-        "Pravda",
-        "Nepravda"
+        "Baktérie",
+        "Rastliny",
+        "Živočíchy",
+        "Huby"
       ],
       "correctAnswer": 0,
       "order": 3
@@ -43,27 +45,27 @@
     {
       "id": "q4-pre-topic1",
       "topicId": 1,
-      "questionText": "Aké látky sú výstupom fotosyntézy?",
+      "questionText": "Akú funkciu má jadro?",
       "questionType": "multiple_choice",
       "options": [
-        "Voda a oxid uhličitý",
-        "Glukóza a kyslík",
-        "Svetlo a chlorofyl",
-        "Voda a kyslík"
+        "Riadi život bunky a obsahuje DNA",
+        "Ukladá tuk",
+        "Produkuje enzýmy pre trávenie",
+        "Chráni pred vonkajšími vplyvmi"
       ],
-      "correctAnswer": 1,
+      "correctAnswer": 0,
       "order": 4
     },
     {
       "id": "q5-pre-topic1",
       "topicId": 1,
-      "questionText": "Čo je chlorofyl?",
+      "questionText": "Prečo sa mitochondria nazýva 'elektráreň bunky'?",
       "questionType": "multiple_choice",
       "options": [
-        "Zelený pigment, ktorý absorbuje svetlo",
-        "Typ vody v rastlinách",
-        "Časť koreňa",
-        "Produkt fotosyntézy"
+        "Pretože produkuje energiu vo forme ATP",
+        "Pretože ukladá tuk",
+        "Pretože riadi bunku",
+        "Pretože obsahuje genetický materiál"
       ],
       "correctAnswer": 0,
       "order": 5
@@ -71,25 +73,27 @@
     {
       "id": "q6-pre-topic1",
       "topicId": 1,
-      "questionText": "Ktoré plyny sú potrebné pre fotosyntézu?",
+      "questionText": "Čo robia ribozómy?",
       "questionType": "multiple_choice",
       "options": [
-        "Kyslík",
-        "Oxid uhličitý",
-        "Dusík",
-        "Vodík"
+        "Syntetizujú bielkoviny",
+        "Ukladajú energiu",
+        "Riadia bunku",
+        "Chránia bunku pred infekciou"
       ],
-      "correctAnswer": 1,
+      "correctAnswer": 0,
       "order": 6
     },
     {
       "id": "q7-pre-topic1",
       "topicId": 1,
-      "questionText": "Fotosyntéza prebieha len cez deň.",
-      "questionType": "true_false",
+      "questionText": "Ktoré štruktúry má navyše rastlinná bunka oproti živočíšnej?",
+      "questionType": "multiple_choice",
       "options": [
-        "Pravda",
-        "Nepravda"
+        "Bunková stena, chloroplasty, vakuola",
+        "Mitochondrie",
+        "Ribozómy",
+        "Jadro"
       ],
       "correctAnswer": 0,
       "order": 7
@@ -97,15 +101,129 @@
     {
       "id": "q8-pre-topic1",
       "topicId": 1,
-      "questionText": "Ktorá časť rastliny pohlcuje vodu pre fotosyntézu?",
+      "questionText": "Akú funkciu má bunková membrána?",
       "questionType": "multiple_choice",
       "options": [
-        "Listy",
-        "Kvety",
-        "Korene",
-        "Plody"
+        "Reguluje vstup a výstup látok",
+        "Produkuje energiu",
+        "Syntetizuje bielkoviny",
+        "Chráni pred UV žiarením"
       ],
-      "correctAnswer": 2,
+      "correctAnswer": 0,
+      "order": 8
+    }
+  ],
+  "2": [
+    {
+      "id": "q1-pre-topic2",
+      "topicId": 2,
+      "questionText": "Pre aký typ trojuholníka platí Pytagorova veta?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Pravouhlý trojuholník",
+        "Rovnoramenný trojuholník",
+        "Rovnostranný trojuholník",
+        "Akýkoľvek trojuholník"
+      ],
+      "correctAnswer": 0,
+      "order": 1
+    },
+    {
+      "id": "q2-pre-topic2",
+      "topicId": 2,
+      "questionText": "Ako znie vzorec Pytagorovej vety?",
+      "questionType": "multiple_choice",
+      "options": [
+        "a² + b² = c²",
+        "a + b = c",
+        "a² – b² = c²",
+        "a² + b² = 2c²"
+      ],
+      "correctAnswer": 0,
+      "order": 2
+    },
+    {
+      "id": "q3-pre-topic2",
+      "topicId": 2,
+      "questionText": "Čo je prepona?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Strana proti pravému uhlu",
+        "Strana vedľa pravého uhlu",
+        "Kratšia strana trojuholníka",
+        "Obvod trojuholníka"
+      ],
+      "correctAnswer": 0,
+      "order": 3
+    },
+    {
+      "id": "q4-pre-topic2",
+      "topicId": 2,
+      "questionText": "Čo sú odvesny?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Dve kratšie strany pravouhlého trojuholníka",
+        "Najdlhšia strana trojuholníka",
+        "Uhol v trojuholníku",
+        "Priesečníky výšok"
+      ],
+      "correctAnswer": 0,
+      "order": 4
+    },
+    {
+      "id": "q5-pre-topic2",
+      "topicId": 2,
+      "questionText": "Čo sú Pytagorejské trojuholníky?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Pravouhlé trojuholníky s celými stranami spĺňajúcimi a² + b² = c²",
+        "Rovnoramenné trojuholníky",
+        "Rovnostranné trojuholníky",
+        "Trojuholníky bez pravého uhla"
+      ],
+      "correctAnswer": 0,
+      "order": 5
+    },
+    {
+      "id": "q6-pre-topic2",
+      "topicId": 2,
+      "questionText": "Dá sa Pytagorova veta použiť aj na výpočet odvesny?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Áno, b = √(c² – a²)",
+        "Nie, len na preponu",
+        "Áno, ale len pri rovnostrannom trojuholníku",
+        "Nie, len pri rovnoramennom trojuholníku"
+      ],
+      "correctAnswer": 0,
+      "order": 6
+    },
+    {
+      "id": "q7-pre-topic2",
+      "topicId": 2,
+      "questionText": "Vieme pomocou Pytagorovej vety zistiť, či je trojuholník pravouhlý?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Áno, ak a² + b² = c²",
+        "Nie, treba merať uhly",
+        "Áno, ale len pri rovnostrannom trojuholníku",
+        "Nie, len pre kvadratické tvary"
+      ],
+      "correctAnswer": 0,
+      "order": 7
+    },
+    {
+      "id": "q8-pre-topic2",
+      "topicId": 2,
+      "questionText": "Prečo Pytagorova veta neplatí pre ľubovoľný trojuholník?",
+      "questionType": "multiple_choice",
+      "options": [
+        "Pretože platí iba pre pravouhlý trojuholník",
+        "Pretože platí len pre rovnostranné trojuholníky",
+        "Pretože platí iba pri rovnoramennom trojuholníku",
+        "Pretože platí pre všetky trojuholníky"
+      ],
+      "correctAnswer": 0,
       "order": 8
     }
   ],
@@ -113,39 +231,41 @@
     {
       "id": "q1-pre-topic3",
       "topicId": 3,
-      "questionText": "Čo sú protostómy?",
+      "questionText": "Čo znamená pojem protostómy?",
       "questionType": "multiple_choice",
       "options": [
-        "Skupina rastlín",
-        "Skupina živočíchov, kde sa ústa vyvíjajú z blastoporu",
-        "Typ baktérií",
-        "Skupina húb"
+        "Živočíchy, u ktorých sa z prvotného otvoru vyvíja ústa",
+        "Živočíchy s chrbtovou kosťou",
+        "Živočíchy, ktoré kladú vajíčka",
+        "Živočíchy s fotosyntézou"
       ],
-      "correctAnswer": 1,
+      "correctAnswer": 0,
       "order": 1
     },
     {
       "id": "q2-pre-topic3",
       "topicId": 3,
-      "questionText": "Ktorá z nasledujúcich skupín patrí k protostómom?",
+      "questionText": "Čo sa z prvotného otvoru vyvinie u protostómov?",
       "questionType": "multiple_choice",
       "options": [
-        "Stavovce",
-        "Cicavce",
-        "Hmyz a mäkkýše",
-        "Vtáky"
+        "Ústa",
+        "Anus",
+        "Oči",
+        "Končatiny"
       ],
-      "correctAnswer": 2,
+      "correctAnswer": 0,
       "order": 2
     },
     {
       "id": "q3-pre-topic3",
       "topicId": 3,
-      "questionText": "Protostómy majú bilaterálnu symetriu.",
-      "questionType": "true_false",
+      "questionText": "Uveď skupiny živočíchov patriace medzi protostómy.",
+      "questionType": "multiple_choice",
       "options": [
-        "Pravda",
-        "Nepravda"
+        "Článkonožce, mäkkýše, kôrovce",
+        "Ryby, obojživelníky, cicavce",
+        "Vtáky, plazy, cicavce",
+        "Huby, rastliny, baktérie"
       ],
       "correctAnswer": 0,
       "order": 3
@@ -153,13 +273,13 @@
     {
       "id": "q4-pre-topic3",
       "topicId": 3,
-      "questionText": "Čo je blastopor?",
+      "questionText": "Sú článkonožce protostómy alebo deuterostómy?",
       "questionType": "multiple_choice",
       "options": [
-        "Prvý otvor v embryu",
-        "Typ bunky",
-        "Orgán na dýchanie",
-        "Časť nervového systému"
+        "Protostómy",
+        "Deuterostómy",
+        "Oba typy",
+        "Žiadny typ"
       ],
       "correctAnswer": 0,
       "order": 4
@@ -167,55 +287,57 @@
     {
       "id": "q5-pre-topic3",
       "topicId": 3,
-      "questionText": "Ktorá z týchto skupín NIE je protostóm?",
+      "questionText": "Aký je rozdiel medzi protostómami a deuterostómami?",
       "questionType": "multiple_choice",
       "options": [
-        "Hmyz",
-        "Mäkkýše",
-        "Morské hviezdice",
-        "Červy"
+        "Protostómy – ústa z prvotného otvoru, deuterostómy – anus z prvotného otvoru",
+        "Protostómy kladú vajíčka, deuterostómy rodia živé mláďatá",
+        "Protostómy sú malé, deuterostómy veľké",
+        "Protostómy majú chrbticu, deuterostómy nemajú"
       ],
-      "correctAnswer": 2,
+      "correctAnswer": 0,
       "order": 5
     },
     {
       "id": "q6-pre-topic3",
       "topicId": 3,
-      "questionText": "Protostómy sú evolučne staršie ako deuterostómy.",
-      "questionType": "true_false",
+      "questionText": "Patrí človek medzi protostómy?",
+      "questionType": "multiple_choice",
       "options": [
-        "Pravda",
-        "Nepravda"
+        "Nie, je deuterostóm",
+        "Áno",
+        "Nie, je hubovitý typ",
+        "Áno, ale len v embryonálnom štádiu"
       ],
-      "correctAnswer": 1,
+      "correctAnswer": 0,
       "order": 6
     },
     {
       "id": "q7-pre-topic3",
       "topicId": 3,
-      "questionText": "Aký typ telesnej dutiny majú protostómy?",
+      "questionText": "Patrí dážďovka medzi protostómy?",
       "questionType": "multiple_choice",
       "options": [
-        "Nemajú telesn dutinu",
-        "Pseudocoel alebo coel",
-        "Len coel",
-        "Žiadnu zo spomínaných"
+        "Áno",
+        "Nie",
+        "Len niektoré druhy",
+        "Nie, patrí k deuterostómom"
       ],
-      "correctAnswer": 1,
+      "correctAnswer": 0,
       "order": 7
     },
     {
       "id": "q8-pre-topic3",
       "topicId": 3,
-      "questionText": "Koľko percent živočíchov na Zemi tvoria protostómy?",
+      "questionText": "Prečo je embryonálny vývoj dôležitý pri delení živočíchov?",
       "questionType": "multiple_choice",
       "options": [
-        "Približne 10%",
-        "Približne 30%",
-        "Približne 50%",
-        "Viac ako 80%"
+        "Určuje, ktorý otvor sa stane ústami alebo análnym otvorom",
+        "Určuje farbu kože",
+        "Určuje počet svalov",
+        "Určuje počet očí"
       ],
-      "correctAnswer": 3,
+      "correctAnswer": 0,
       "order": 8
     }
   ],
@@ -223,27 +345,27 @@
     {
       "id": "q1-pre-topic4",
       "topicId": 4,
-      "questionText": "Čo je wok?",
+      "questionText": "Ktoré sú základné spôsoby tepelnej úpravy potravín?",
       "questionType": "multiple_choice",
       "options": [
-        "Typ jedla",
-        "Hlboká panvica s oblým dnom",
-        "Druh korenia",
-        "Varný štýl"
+        "Varenie, pečenie, dusenie, grilovanie",
+        "Mletie, sekanie, strúhanie",
+        "Oplachovanie, skladovanie",
+        "Fyzické miešanie"
       ],
-      "correctAnswer": 1,
+      "correctAnswer": 0,
       "order": 1
     },
     {
       "id": "q2-pre-topic4",
       "topicId": 4,
-      "questionText": "Pri akom type varenia na woku je najvyššia teplota?",
+      "questionText": "Aký je hlavný rozdiel medzi varením, dusením a pečením?",
       "questionType": "multiple_choice",
       "options": [
-        "Pečenie",
-        "Stir-fry (miešané smaženie)",
-        "Varenie",
-        "Dusenie"
+        "Použitie rôznych korenín",
+        "Rôzny spôsob zahrievania a množstvo tekutiny",
+        "Dĺžka času skladovania",
+        "Tvar potraviny"
       ],
       "correctAnswer": 1,
       "order": 2
@@ -251,51 +373,55 @@
     {
       "id": "q3-pre-topic4",
       "topicId": 4,
-      "questionText": "Pri stir-fry je dôležité neustále miešať jedlo.",
-      "questionType": "true_false",
+      "questionText": "Prečo je dôležité správne nakrájať suroviny pred varením?",
+      "questionType": "multiple_choice",
       "options": [
-        "Pravda",
-        "Nepravda"
+        "Aby jedlo vyzeralo pekne",
+        "Aby sa varili rovnomerne a rýchlejšie",
+        "Aby sa mohli lepšie uložiť do chladničky",
+        "Aby sa dalo ľahšie zmraziť"
       ],
-      "correctAnswer": 0,
+      "correctAnswer": 1,
       "order": 3
     },
     {
       "id": "q4-pre-topic4",
       "topicId": 4,
-      "questionText": "Aký olej je najlepší na varenie na woku pri vysokej teplote?",
+      "questionText": "Ktoré potraviny je vždy potrebné dobre umyť pred varením?",
       "questionType": "multiple_choice",
       "options": [
-        "Olivový olej",
-        "Maslo",
-        "Olej s vysokým bodom dymu (napr. arašidový)",
-        "Kokosový olej"
+        "Mäso a ryby",
+        "Zelenina a ovocie",
+        "Cestoviny a ryža",
+        "Mliečne výrobky"
       ],
-      "correctAnswer": 2,
+      "correctAnswer": 1,
       "order": 4
     },
     {
       "id": "q5-pre-topic4",
       "topicId": 4,
-      "questionText": "V akom poradí sa pridávajú ingrediencie do woku?",
+      "questionText": "Prečo je dôležité používať správnu teplotu pri varení alebo smažení?",
       "questionType": "multiple_choice",
       "options": [
-        "Všetko naraz",
-        "Najprv zelenina, potom mäso",
-        "Najprv ingrediencie s dlhším časom varenia",
-        "Náhodne"
+        "Aby sa jedlo neprehrialo alebo nepripálilo",
+        "Aby sa jedlo rýchlejšie ochladilo",
+        "Aby sa ušetrila elektrina",
+        "Aby sa dalo lepšie zamiešať"
       ],
-      "correctAnswer": 2,
+      "correctAnswer": 0,
       "order": 5
     },
     {
       "id": "q6-pre-topic4",
       "topicId": 4,
-      "questionText": "Wok pochádza z Číny.",
-      "questionType": "true_false",
+      "questionText": "Aké typy ohrevu poznáme a aký riad použiť?",
+      "questionType": "multiple_choice",
       "options": [
-        "Pravda",
-        "Nepravda"
+        "Indukcia – magnetický hrniec/panvica, plyn – kovový hrniec/panvica, elektrika – všetky druhy riadu",
+        "Indukcia – sklenené misky, plyn – plast, elektrika – len keramika",
+        "Indukcia – hliníkový riad bez magnetu, plyn – sklo, elektrika – len kov",
+        "Indukcia, plyn, elektrika – všetko je rovnaké"
       ],
       "correctAnswer": 0,
       "order": 6
@@ -303,29 +429,29 @@
     {
       "id": "q7-pre-topic4",
       "topicId": 4,
-      "questionText": "Prečo je dôležité nakrájať ingrediencie na rovnako veľké kúsky?",
+      "questionText": "Ktoré koreniny alebo bylinky sú vhodné na dochutenie jedla počas varenia?",
       "questionType": "multiple_choice",
       "options": [
-        "Pre estetiku",
-        "Pre rovnomerné uvarenie",
-        "Pre lepšiu chuť",
-        "Nie je to dôležité"
+        "Soľ, korenie, cesnak, bylinky",
+        "Cukor a kakao",
+        "Múka a voda",
+        "Ocot a sóda"
       ],
-      "correctAnswer": 1,
+      "correctAnswer": 0,
       "order": 7
     },
     {
       "id": "q8-pre-topic4",
       "topicId": 4,
-      "questionText": "Čo je 'wok hei'?",
+      "questionText": "Ako zistíš, že je jedlo dostatočne uvarené alebo opečené?",
       "questionType": "multiple_choice",
       "options": [
-        "Typ woku",
-        "Dym a aróma z varenia na vysokej teplote",
-        "Čínske korenie",
-        "Technika krájania"
+        "Podľa farby, vône a textúry",
+        "Podľa počtu ingrediencií",
+        "Podľa veľkosti hrnca",
+        "Podľa času po otvorení chladničky"
       ],
-      "correctAnswer": 1,
+      "correctAnswer": 0,
       "order": 8
     }
   ],

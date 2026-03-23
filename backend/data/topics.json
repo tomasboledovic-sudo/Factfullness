@@ -1,13 +1,13 @@
 [
   {
     "id": 1,
-    "title": "Základy Fotosyntézy",
+    "title": "Základy Bunky",
     "category": "Biológia",
     "difficulty": "beginner",
-    "description": "Naučte sa, ako rastliny premieňajú svetlo na energiu",
-    "longDescription": "Fotosyntéza je proces, pri ktorom rastliny využívajú slnečnú energiu na výrobu glukózy z oxidu uhličitého a vody.",
+    "description": "Spoznajte základnú stavebnú jednotku života — bunku",
+    "longDescription": "Bunka je najmenšia jednotka života. Naučte sa rozdiely medzi prokaryotickými a eukaryotickými bunkami, funkcie organel a stavbu bunkovej membrány.",
     "estimatedDuration": 10,
-    "coverImage": "/images/topics/photosynthesis.jpg"
+    "coverImage": "/images/topics/cell.jpg"
   },
   {
     "id": 2,

@@ -1,9 +1,8 @@
-import { readFileSync, writeFileSync } from 'fs';
-import { v4 as uuidv4 } from 'uuid';
+import { readFileSync } from 'fs';
+import supabase from '../services/supabaseClient.js';
 
 /**
  * POST /api/sessions
- * Vytvorenie novej learning session
  */
 export async function createSession(req, res, next) {
     try {
@@ -12,60 +11,43 @@ export async function createSession(req, res, next) {
         if (!topicId) {
             return res.status(400).json({
                 success: false,
-                error: {
-                    code: 'INVALID_INPUT',
-                    message: 'topicId je povinný',
-                    details: { field: 'topicId' }
-                }
+                error: { code: 'INVALID_INPUT', message: 'topicId je povinný', details: { field: 'topicId' } }
             });
         }
 
-        // Validácia, že téma existuje
         const topics = JSON.parse(readFileSync('./data/topics.json', 'utf8'));
         const topic = topics.find(t => t.id === topicId);
 
         if (!topic) {
             return res.status(404).json({
                 success: false,
-                error: {
-                    code: 'TOPIC_NOT_FOUND',
-                    message: 'Téma s daným ID neexistuje'
-                }
+                error: { code: 'TOPIC_NOT_FOUND', message: 'Téma s daným ID neexistuje' }
             });
         }
 
-        // Vytvorenie novej session
-        const sessionId = uuidv4();
-        const newSession = {
-            id: sessionId,
-            topicId,
-            status: 'pre_assessment',
-            createdAt: new Date().toISOString(),
-            preTestScore: null,
-            postTestScore: null,
-            preTestAnswers: null,
-            postTestAnswers: null,
-            generatedContent: null,
-            studyTimeSeconds: 0
-        };
+        const { data: newSession, error } = await supabase
+            .from('sessions')
+            .insert({
+                topic_id: topicId,
+                user_id: req.userId || null,
+                status: 'pre_assessment'
+            })
+            .select('id, topic_id, status, created_at')
+            .single();
 
-        // Uloženie do sessions.json
-        const sessions = JSON.parse(readFileSync('./data/sessions.json', 'utf8'));
-        sessions[sessionId] = newSession;
-        writeFileSync('./data/sessions.json', JSON.stringify(sessions, null, 2));
+        if (error) throw error;
 
-        console.log(`✅ Vytvorená nová session: ${sessionId} pre tému: ${topic.title}`);
+        console.log(`✅ Vytvorená nová session: ${newSession.id} pre tému: ${topic.title}`);
 
         res.status(201).json({
             success: true,
             data: {
-                sessionId,
-                topicId,
-                status: 'pre_assessment',
-                createdAt: newSession.createdAt
+                sessionId: newSession.id,
+                topicId: newSession.topic_id,
+                status: newSession.status,
+                createdAt: newSession.created_at
             }
         });
-
     } catch (error) {
         next(error);
     }
@@ -73,32 +55,26 @@ export async function createSession(req, res, next) {
 
 /**
  * GET /api/sessions/:sessionId
- * Detail learning session
  */
 export async function getSession(req, res, next) {
     try {
         const { sessionId } = req.params;
 
-        const sessions = JSON.parse(readFileSync('./data/sessions.json', 'utf8'));
-        const session = sessions[sessionId];
+        const { data: session, error } = await supabase
+            .from('sessions')
+            .select('*')
+            .eq('id', sessionId)
+            .maybeSingle();
 
-        if (!session) {
+        if (error || !session) {
             return res.status(404).json({
                 success: false,
-                error: {
-                    code: 'SESSION_NOT_FOUND',
-                    message: 'Session s daným ID neexistuje'
-                }
+                error: { code: 'SESSION_NOT_FOUND', message: 'Session s daným ID neexistuje' }
             });
         }
 
-        res.json({
-            success: true,
-            data: session
-        });
-
+        res.json({ success: true, data: session });
     } catch (error) {
         next(error);
     }
 }
-
