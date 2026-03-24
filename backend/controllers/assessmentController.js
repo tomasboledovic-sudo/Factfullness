@@ -1,4 +1,4 @@
-import { readData } from '../utils/paths.js';
+import { getTopicById, getQuestionsByTopicId } from '../utils/supabaseData.js';
 import { generateLearningContent, generateFinalTest } from '../services/geminiService.js';
 import supabase from '../services/supabaseClient.js';
 
@@ -49,9 +49,8 @@ export async function submitPreTest(req, res, next) {
             return res.status(409).json({ success: false, error: { code: 'INVALID_SESSION_STATUS', message: 'Session nie je v správnom stave' } });
         }
 
-        const allQuestions = readData('preTestQuestions.json');
-        const questions = allQuestions[session.topic_id.toString()];
-        if (!questions) throw new Error('Otázky pre túto tému neboli nájdené');
+        const questions = await getQuestionsByTopicId(session.topic_id);
+        if (!questions?.length) throw new Error('Otázky pre túto tému neboli nájdené');
 
         const evaluatedAnswers = answers.map(answer => {
             const question = questions.find(q => q.id === answer.questionId);
@@ -108,8 +107,7 @@ export async function submitPreTest(req, res, next) {
 async function generateContentInBackground(sessionId, topicId, testResults) {
     try {
         console.log(`🔄 [POZADIE] Generujem učebné materiály pre session: ${sessionId}`);
-        const topics = readData('topics.json');
-        const topic = topics.find(t => t.id === topicId);
+        const topic = await getTopicById(topicId);
         if (!topic) throw new Error('Téma nebola nájdená');
 
         const generatedContent = await generateLearningContent(topic, testResults);
@@ -174,8 +172,7 @@ async function generateTestInBackground(sessionId) {
         const session = await fetchSession(sessionId);
         if (!session?.generated_content) throw new Error('Session alebo učebný obsah neexistuje');
 
-        const topics = readData('topics.json');
-        const topic = topics.find(t => t.id === session.topic_id);
+        const topic = await getTopicById(session.topic_id);
         if (!topic) throw new Error('Téma nebola nájdená');
 
         const preAnswers = session.pre_test_answers || [];
@@ -269,15 +266,12 @@ export async function getPreTest(req, res, next) {
             return res.status(404).json({ success: false, error: { code: 'SESSION_NOT_FOUND', message: 'Session neexistuje' } });
         }
 
-        const allQuestions = readData('preTestQuestions.json');
-        const questions = allQuestions[session.topic_id.toString()];
-
-        if (!questions) {
+        const questions = await getQuestionsByTopicId(session.topic_id);
+        if (!questions?.length) {
             return res.status(404).json({ success: false, error: { code: 'QUESTIONS_NOT_FOUND', message: 'Otázky neboli nájdené' } });
         }
 
-        const topics = readData('topics.json');
-        const topic = topics.find(t => t.id === session.topic_id);
+        const topic = await getTopicById(session.topic_id);
 
         res.json({
             success: true,
