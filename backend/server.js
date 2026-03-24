@@ -1,28 +1,25 @@
 import express from 'express';
 import cors from 'cors';
+import { readFileSync } from 'fs';
 
-// Load .env manually in dev (Vercel injects env vars automatically in production)
-if (process.env.NODE_ENV !== 'production') {
-    try {
-        const { readFileSync } = await import('fs');
-        const envContent = readFileSync('.env', 'utf8');
-        envContent.split('\n').forEach(line => {
-            const trimmed = line.trim();
-            if (trimmed && !trimmed.startsWith('#')) {
-                const idx = trimmed.indexOf('=');
-                if (idx > 0) {
-                    const key = trimmed.substring(0, idx).trim();
-                    const value = trimmed.substring(idx + 1).trim();
-                    if (!process.env[key]) process.env[key] = value;
-                }
+// Load .env in dev (Vercel injects env vars automatically in production)
+try {
+    const envContent = readFileSync(new URL('.env', import.meta.url), 'utf8');
+    envContent.split('\n').forEach(line => {
+        const trimmed = line.trim();
+        if (trimmed && !trimmed.startsWith('#')) {
+            const idx = trimmed.indexOf('=');
+            if (idx > 0) {
+                const key = trimmed.substring(0, idx).trim();
+                const value = trimmed.substring(idx + 1).trim();
+                if (!process.env[key]) process.env[key] = value;
             }
-        });
-    } catch (e) {
-        // .env not found, env vars must be set externally
-    }
+        }
+    });
+} catch (e) {
+    // .env not present (production / Vercel) — env vars injected by platform
 }
 
-// Routes
 import assessmentRoutes from './routes/assessmentRoutes.js';
 import topicRoutes from './routes/topicRoutes.js';
 import sessionRoutes from './routes/sessionRoutes.js';
@@ -54,7 +51,11 @@ app.use((err, req, res, next) => {
     console.error('Error:', err);
     res.status(err.status || 500).json({
         success: false,
-        error: { code: err.code || 'INTERNAL_ERROR', message: err.message || 'Došlo k chybe na serveri', details: err.details || null }
+        error: {
+            code: err.code || 'INTERNAL_ERROR',
+            message: err.message || 'Došlo k chybe na serveri',
+            details: err.details || null
+        }
     });
 });
 
@@ -62,8 +63,8 @@ app.use((req, res) => {
     res.status(404).json({ success: false, error: { code: 'NOT_FOUND', message: 'Endpoint neexistuje' } });
 });
 
-// Only start HTTP server in local dev (not on Vercel)
-if (process.env.NODE_ENV !== 'production') {
+// Only start HTTP server in local dev
+if (!process.env.VERCEL) {
     app.listen(PORT, () => {
         console.log(`🚀 Server beží na http://localhost:${PORT}`);
         console.log(`✅ Gemini API key: ${process.env.GEMINI_API_KEY ? 'Načítaný' : 'CHÝBA!'}`);
