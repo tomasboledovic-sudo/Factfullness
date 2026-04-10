@@ -1,22 +1,26 @@
-import supabase from '../services/supabaseClient.js';
+import { createClient } from '@supabase/supabase-js';
+
+// Use friend's Supabase project which already has file_metadata table + files bucket
+let _filesClient = null;
+function getFilesClient() {
+    if (!_filesClient) {
+        const url = process.env.FILES_SUPABASE_URL;
+        const key = process.env.FILES_SUPABASE_ANON_KEY;
+        if (!url || !key) throw new Error('FILES_SUPABASE_URL alebo FILES_SUPABASE_ANON_KEY nie sú nastavené');
+        _filesClient = createClient(url, key);
+    }
+    return _filesClient;
+}
 
 const BUCKET = 'files';
-
-// Ensure the storage bucket exists
-async function ensureBucket() {
-    const { data: buckets } = await supabase.storage.listBuckets();
-    const exists = buckets?.some(b => b.name === BUCKET);
-    if (!exists) {
-        await supabase.storage.createBucket(BUCKET, { public: false });
-    }
-}
 
 /**
  * GET /api/files
  */
 export async function listFiles(req, res, next) {
     try {
-        const { data, error } = await supabase
+        const sb = getFilesClient();
+        const { data, error } = await sb
             .from('file_metadata')
             .select('*')
             .order('uploaded_at', { ascending: false });
@@ -36,13 +40,12 @@ export async function uploadFile(req, res, next) {
             return res.status(400).json({ success: false, error: { code: 'NO_FILE', message: 'Žiadny súbor nebol nahraný' } });
         }
 
-        await ensureBucket();
-
+        const sb = getFilesClient();
         const ext = req.file.originalname.split('.').pop();
         const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${ext}`;
         const filePath = `uploads/${fileName}`;
 
-        const { error: uploadError } = await supabase.storage
+        const { error: uploadError } = await sb.storage
             .from(BUCKET)
             .upload(filePath, req.file.buffer, {
                 contentType: req.file.mimetype,
@@ -51,7 +54,7 @@ export async function uploadFile(req, res, next) {
             });
         if (uploadError) throw uploadError;
 
-        const { data: inserted, error: dbError } = await supabase
+        const { data: inserted, error: dbError } = await sb
             .from('file_metadata')
             .insert({
                 file_name: req.file.originalname,
@@ -77,15 +80,16 @@ export async function uploadFile(req, res, next) {
 export async function deleteFile(req, res, next) {
     try {
         const { id } = req.params;
+        const sb = getFilesClient();
 
-        const { data: file, error: fetchErr } = await supabase
+        const { data: file, error: fetchErr } = await sb
             .from('file_metadata').select('*').eq('id', id).maybeSingle();
         if (fetchErr || !file) {
             return res.status(404).json({ success: false, error: { code: 'NOT_FOUND', message: 'Súbor neexistuje' } });
         }
 
-        await supabase.storage.from(BUCKET).remove([file.file_path]);
-        await supabase.from('file_metadata').delete().eq('id', id);
+        await sb.storage.from(BUCKET).remove([file.file_path]);
+        await sb.from('file_metadata').delete().eq('id', id);
 
         console.log(`🗑️ Súbor zmazaný: ${file.file_name}`);
         res.json({ success: true, message: 'Súbor bol zmazaný' });
@@ -100,22 +104,21 @@ export async function deleteFile(req, res, next) {
 export async function summarizeFile(req, res, next) {
     try {
         const { id } = req.params;
+        const sb = getFilesClient();
 
-        const { data: file, error: fetchErr } = await supabase
+        const { data: file, error: fetchErr } = await sb
             .from('file_metadata').select('*').eq('id', id).maybeSingle();
         if (fetchErr || !file) {
             return res.status(404).json({ success: false, error: { code: 'NOT_FOUND', message: 'Súbor neexistuje' } });
         }
 
-        // Download file from storage
-        const { data: fileBlob, error: dlErr } = await supabase.storage
+        const { data: fileBlob, error: dlErr } = await sb.storage
             .from(BUCKET).download(file.file_path);
         if (dlErr) throw dlErr;
 
         const arrayBuffer = await fileBlob.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
 
-        // Extract text
         let fileContent = '';
         const lower = file.file_name.toLowerCase();
 
@@ -133,7 +136,6 @@ export async function summarizeFile(req, res, next) {
             return res.status(422).json({ success: false, error: { code: 'EMPTY_CONTENT', message: 'Zo súboru sa nepodarilo extrahovať text' } });
         }
 
-        // Summarize with Gemini
         const summary = await callGeminiSummarize(fileContent, file.file_name);
         res.json({ success: true, data: { summary, fileName: file.file_name } });
     } catch (error) {
